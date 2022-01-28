@@ -160,7 +160,7 @@ export default class Calculator extends React.Component {
             venomaster,
             zamorakianSight,
         ],
-        setsEffects: [
+        setEffects: [
             absoluteUnit,
             alchemist,
             chainMagic,
@@ -202,13 +202,13 @@ export default class Calculator extends React.Component {
     }
 
     clickedSetCount = (idx, count) => {
-        const se = this.state.setsEffects[idx]
+        const se = this.state.setEffects[idx]
 
         const newChosenBool = se.chosenCount == count ? !se.chosen : true
         const newSetEffects = [
-            ...this.state.setsEffects.slice(0, idx),
-            Object.assign(this.state.setsEffects[idx], { chosen: newChosenBool, chosenCount: count }),
-            ...this.state.setsEffects.slice(idx + 1)
+            ...this.state.setEffects.slice(0, idx),
+            Object.assign(this.state.setEffects[idx], { chosen: newChosenBool, chosenCount: count }),
+            ...this.state.setEffects.slice(idx + 1)
         ]
 
         this.setState({ setEffects: newSetEffects }, this.computeCombination)
@@ -221,7 +221,7 @@ export default class Calculator extends React.Component {
     }
 
     setClicked = (idx) => {
-        const se = this.state.setsEffects[idx]
+        const se = this.state.setEffects[idx]
 
         if (se.counts.length > 1) {
             // if multiple counts, iterate through them before turning off
@@ -240,18 +240,18 @@ export default class Calculator extends React.Component {
             }
 
             const newSetEffects = [
-                ...this.state.setsEffects.slice(0, idx),
-                Object.assign(this.state.setsEffects[idx], { chosen: newChosenBool, chosenCount: newChosenCount }),
-                ...this.state.setsEffects.slice(idx + 1)
+                ...this.state.setEffects.slice(0, idx),
+                Object.assign(this.state.setEffects[idx], { chosen: newChosenBool, chosenCount: newChosenCount }),
+                ...this.state.setEffects.slice(idx + 1)
             ]
 
             this.setState({ setEffects: newSetEffects }, this.computeCombination)
         } else {
             // if only 1 seteffect count just toggle
             const newSetEffects = [
-                ...this.state.setsEffects.slice(0, idx),
-                Object.assign(this.state.setsEffects[idx], { chosen: !se.chosen, chosenCount: se.counts[0] }),
-                ...this.state.setsEffects.slice(idx + 1)
+                ...this.state.setEffects.slice(0, idx),
+                Object.assign(this.state.setEffects[idx], { chosen: !se.chosen, chosenCount: se.counts[0] }),
+                ...this.state.setEffects.slice(idx + 1)
             ]
 
             this.setState({ setEffects: newSetEffects }, this.computeCombination)
@@ -380,7 +380,7 @@ export default class Calculator extends React.Component {
                     <p>Click to enable/disable <button 
                         onClick={this.clearAllClicked}
                         className="button-xsmall pure-button float-right mt--20">Clear All</button></p>
-                    {this.state.setsEffects.map((set, i) =>
+                    {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
                             className={`set-effect pointer `}>
                             <img 
