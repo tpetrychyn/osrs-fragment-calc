@@ -356,6 +356,7 @@ export default class Calculator extends React.Component {
     render() {
         return (
             <div className="component-app">
+                <p>Please note this uses a very poor algorithm for determining set combinations so choosing 3-4 sets may lag temporarily. 5 or more sets is disabled to prevent browser freezing.</p>
                 <div className="pure-u-1 min-height-145">
                     <h1>Possible Build</h1>
                     {this.state.possibleBuild ?
