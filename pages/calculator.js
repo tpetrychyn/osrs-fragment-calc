@@ -217,7 +217,7 @@ export default class Calculator extends React.Component {
     clearAllClicked = () => {
         this.state.setEffects.forEach(se => se.chosen = false)
 
-        this.setState({ setEffects: this.state.setEffects, buildPrompt: "Please select some set effects.", possibleBuild: null})
+        this.setState({ setEffects: this.state.setEffects, buildPrompt: "Please select some set effects.", possibleBuild: null })
     }
 
     setClicked = (idx) => {
@@ -352,6 +352,9 @@ export default class Calculator extends React.Component {
         return combs;
     }
 
+    onTierChanged = (e) => {
+        this.setState({numSlots: e.target.value}, this.computeCombination)
+    }
 
     render() {
         return (
@@ -359,6 +362,18 @@ export default class Calculator extends React.Component {
                 <p>Please note this uses a very poor algorithm for determining set combinations so choosing 3-4 sets may lag temporarily. 5 or more sets is disabled to prevent browser freezing.</p>
                 <div className="pure-u-1 min-height-145">
                     <h1>Possible Build</h1>
+                    <h3><label htmlFor="multi-state">Tier&nbsp;</label>
+                        <select id="multi-state" className="pure-input-1" value={this.state.numSlots} onChange={this.onTierChanged}>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                            <option>7</option>
+                        </select>
+                    </h3>
+
                     {this.state.possibleBuild ?
                         this.state.possibleBuild.map((frag, i) =>
                             <div key={frag.name} className="float-left mr-2">
@@ -377,15 +392,15 @@ export default class Calculator extends React.Component {
                 </div>
                 <div className="pure-u-1">
                     <h1>Set Effects</h1>
-                    <p>Click to enable/disable <button 
+                    <p>Click to enable/disable <button
                         onClick={this.clearAllClicked}
                         className="button-xsmall pure-button float-right mt--20">Clear All</button></p>
                     {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
                             className={`set-effect pointer `}>
-                            <img 
-                            onClick={() => this.setClicked(i)}
-                            className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
+                            <img
+                                onClick={() => this.setClicked(i)}
+                                className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
                             <div onClick={() => this.setClicked(i)}>{set.name}</div>
                             {set.counts.map((count) =>
                                 <button key={count}
