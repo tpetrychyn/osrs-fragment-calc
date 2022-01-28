@@ -2,13 +2,15 @@ import React from "react"
 
 class Fragment {
     name = ""
+    description = ""
     setEffects = new Set()
     imageUrl = ""
     owned = true
     mustInclude = false
 
-    constructor(name) {
+    constructor(name, description) {
         this.name = name
+        this.description = description
         this.imageUrl = "https://oldschool.runescape.wiki/images/" + name.replaceAll(" ", "_") + ".png"
     }
 }
@@ -32,59 +34,59 @@ class SetEffect {
     }
 }
 
-const alchemaniac = new Fragment("Alchemaniac")
-const arcaneConduit = new Fragment("Arcane Conduit")
-const armadyleanDecree = new Fragment("Armadylean Decree")
-const bandosianMight = new Fragment("Bandosian Might")
-const barbarianPestWars = new Fragment("Barbarian Pest Wars")
-const bottomlessQuiver = new Fragment("Bottomless Quiver")
-const catchOfTheDay = new Fragment("Catch Of The Day")
-const certifiedFarmer = new Fragment("Certified Farmer")
-const chefsCatch = new Fragment("Chef's Catch")
-const chinchonkers = new Fragment("Chinchonkers")
-const cluedIn = new Fragment("Clued In")
-const deeperPockets = new Fragment("Deeper Pockets")
-const dineDash = new Fragment("Dine & Dash")
-const divineRestoration = new Fragment("Divine Restoration")
-const dragonOnABit = new Fragment("Dragon On A Bit")
-const enchantedJeweler = new Fragment("Enchanted Jeweler")
-const goldenBrickRoad = new Fragment("Golden Brick Road")
-const graveRobber = new Fragment("Grave Robber")
-const homewrecker = new Fragment("Homewrecker")
-const hotOnTheTrail = new Fragment("Hot On The Trail")
-const imcandosApprentice = new Fragment("Imcando's Apprentice")
-const justDruid = new Fragment("Just Druid!")
-const largerRecharger = new Fragment("Larger Recharger")
-const livinOnAPrayer = new Fragment("Livin' On A Prayer")
-const messageInABottle = new Fragment("Message In A Bottle")
-const mixologist = new Fragment("Mixologist")
-const moltenMiner = new Fragment("Molten Miner")
-const mothersMagicFossils = new Fragment("Mother's Magic Fossils")
-const plankStretcher = new Fragment("Plank Stretcher")
-const prayingRespects = new Fragment("Praying Respects")
-const proTips = new Fragment("Pro Tips")
-const profconstchional = new Fragment("Profletchional")
-const rockSolid = new Fragment("Rock Solid")
-const roguesChompyFarm = new Fragment("Rogues' Chompy Farm")
-const rootyTooty2xRuneys = new Fragment("Rooty Tooty 2x Runeys")
-const rumpleBowString = new Fragment("Rumple-Bow-String")
-const runeEscape = new Fragment("Rune Escape")
-const saradoministDefence = new Fragment("Saradominist Defence")
-const seedyBusiness = new Fragment("Seedy Business")
-const slashBurn = new Fragment("Slash & Burn")
-const slaynPay = new Fragment("Slay 'n' Pay")
-const slayAllDay = new Fragment("Slay All Day")
-const smithingDouble = new Fragment("Smithing Double")
-const smoothCriminal = new Fragment("Smooth Criminal")
-const specialDiscount = new Fragment("Special Discount")
-const superiorTracking = new Fragment("Superior Tracking")
-const tacticalDuelist = new Fragment("Tactical Duelist")
-const thrallDamage = new Fragment("Thrall Damage")
-const unholyRanger = new Fragment("Unholy Ranger")
-const unholyWarrior = new Fragment("Unholy Warrior")
-const unholyWizard = new Fragment("Unholy Wizard")
-const venomaster = new Fragment("Venomaster")
-const zamorakianSight = new Fragment("Zamorakian Sight")
+const alchemaniac = new Fragment("Alchemaniac", "Players will receive 15/30/50% extra coins when casting High Level Alchemy on items.")
+const arcaneConduit = new Fragment("Arcane Conduit", "Runes and magic weapon charges have a 40/60/90% chance to be saved.")
+const armadyleanDecree = new Fragment("Armadylean Decree", "When wielding four Armadylean items, enchanted bolt effects have a 25/50/100% increased chance to activate.")
+const bandosianMight = new Fragment("Bandosian Might", "When wielding four Bandosian items, the player's max melee hit is increased by 1/2/4 for every attack speed a weapon has.")
+const barbarianPestWars = new Fragment("Barbarian Pest Wars", "Reward currency earned for playing the following minigames are increased by x2/x3/x4:")
+const bottomlessQuiver = new Fragment("Bottomless Quiver", "Ranged ammunition and ranged weapon charges have a 40/60/90% chance to be saved, excluding Chinchompa (weapon)|chinchompas.")
+const catchOfTheDay = new Fragment("Catch Of The Day", "All types of Fishing activities have a 1 in 300/200/80 chance, per catch, to roll the rare drop table once.")
+const certifiedFarmer = new Fragment("Certified Farmer", "Farming yields have a 25/50/100% chance to be doubled, and are converted to bank notes upon harvest.")
+const chefsCatch = new Fragment("Chef's Catch", "Players have a 20/35/50% chance of cooking a raw fish upon catching them. Cooking experience is granted, even if players do not have the level required to cook them normally.")
+const chinchonkers = new Fragment("Chinchonkers", "Catching Chinchompa (disambiguation)|chinchompas grant 50/100/100% more Hunter experience. At level 3, players will receive two chinchompas per successful capture.")
+const cluedIn = new Fragment("Clued In", "The drop rate of scroll boxes from NPCs are increased to 1 in 30/25/15.")
+const deeperPockets = new Fragment("Deeper Pockets", "Players have a 20/50/100% chance to receive double loot when pickpocketing NPCs. This stacks multiplicatively with rogue equipment.")
+const dineDash = new Fragment("Dine & Dash", "Players have a 10/20/50% chance to receive an extra piece of cooked food while cooking.")
+const divineRestoration = new Fragment("Divine Restoration", "Players will have their prayer points restored by one every 15/9/3.6 seconds.")
+const dragonOnABit = new Fragment("Dragon On A Bit", "Players have a 10/20/40% chance to save the materials used whilst crafting dragonhide armour.")
+const enchantedJeweler = new Fragment("Enchanted Jeweler", "Each enchantment spell cast will enchant up to 5/10/25 pieces of jewellery, granting the full Magic experience.")
+const goldenBrickRoad = new Fragment("Golden Brick Road", "When a mark of grace appears when training on a Rooftop Agility Course, 4,000/7,000/15,000 coins will appear alongside it.")
+const graveRobber = new Fragment("Grave Robber", "The amount of hallowed marks received when looting Coffin (Hallowed Sepulchre)|coffins within the Hallowed Sepulchre is increased by 50/150/300%.")
+const homewrecker = new Fragment("Homewrecker", "Players have a x2/x3/x4 chance of receiving bird nests when chopping trees, and are sent to the bank rather than falling to the ground.")
+const hotOnTheTrail = new Fragment("Hot On The Trail", "Players have a 2/5/10% chance to obtain a scroll box whilst lighting logs via Firemaking.")
+const imcandosApprentice = new Fragment("Imcando's Apprentice", "Players have a 20/50/75% chance to craft an extra piece of gemmed jewellery, granting Crafting experience for the extra jewellery.")
+const justDruid = new Fragment("Just Druid!", "Players will receive 10/20/40% extra Herblore experience for each grimy herb cleaned.")
+const largerRecharger = new Fragment("Larger Recharger", "Players will have their special attack energy restored by 10% every 25/20/10 seconds.")
+const livinOnAPrayer = new Fragment("Livin' On A Prayer", "The drain rate of activated prayers are reduced by 15/30/60%.")
+const messageInABottle = new Fragment("Message In A Bottle", "The chance of receiving clue geodes, clue nest|nests, and Clue bottle|bottles from skilling are increased by x3/x5/x10.")
+const mixologist = new Fragment("Mixologist", "Players will have a 25/50/100% chance to mix a 4-dose potion rather than a 3-dose potion, with a 20/50/100% chance to save the secondary ingredient.")
+const moltenMiner = new Fragment("Molten Miner", "If applicable, ores mined have a 20/50/100% chance to be smelted into bars. Smithing experience is granted, even if players do not have the level required to smelt them normally.")
+const mothersMagicFossils = new Fragment("Mother's Magic Fossils", "The chance of receiving golden nuggets from the Motherlode Mine is increased by x2/x3/x4. The amount of pizazz points received from activities in the Mage Training Arena is increased by x2/x3/x4. The chance of receiving fossils from activities on Fossil Island is increased by x2/x3/x4.")
+const plankStretcher = new Fragment("Plank Stretcher", "Players will have a 10/20/50% chance to save their planks whilst training Construction.")
+const prayingRespects = new Fragment("Praying Respects", "Remains are automatically buried/scattered, granting 50/100/200% of the usual Prayer experience. League experience multipliers are applied.")
+const proTips = new Fragment("Pro Tips", "Players will receive 30/50/100% more bolt tips per gem whilst making them.")
+const profconstchional = new Fragment("Profletchional", "Fletching logs and stringing bows grant 30/50/100% more Fletching experience.")
+const rockSolid = new Fragment("Rock Solid", "Iron rock|Iron, Sandstone rock|sandstone, and granite rocks have a 25/50/75% chance to not be depleted upon being mined.")
+const roguesChompyFarm = new Fragment("Rogues' Chompy Farm", "The chance of successfully cracking the wall safe at the end of the Rogues' Den maze is increased by 10/20/40%. Each chompy bird killed will count as 2/3/4 kills when checking chompy kill-count via the ogre bow. The amount of points earned from the Tithe Farm is increased by x2/x3/x4.")
+const rootyTooty2xRuneys = new Fragment("Rooty Tooty 2x Runeys", "Players have a 20/40/80% chance to receive an extra rune for each rune crafted.")
+const rumpleBowString = new Fragment("Rumple-Bow-String", "The Spin Flax spell gives 10/15/27 bow strings instead of the usual 5.")
+const runeEscape = new Fragment("Rune Escape", "Players will no longer receive mind (lv-1), body (lv-2), elemental runes (lv-3) when crafting runes at the Ourania Altar.")
+const saradoministDefence = new Fragment("Saradominist Defence", "When wielding four Saradominist items, the player's max hit is increased by 2/5/10 if they have taken damage in the last 3.6 seconds.")
+const seedyBusiness = new Fragment("Seedy Business", "Players have a 10/25/50% chance to save their seed upon planting it in a farming patch.")
+const slashBurn = new Fragment("Slash & Burn", "Players have a 20/35/50% chance of burning logs upon chopping them. Firemaking experience is granted, even if players do not have the level required to burn them normally.")
+const slaynPay = new Fragment("Slay 'n' Pay", "Players will earn 10/20/50% more slayer reward points upon completing a slayer task.")
+const slayAllDay = new Fragment("Slay All Day", "Players will heal 1/2/3 hitpoints for every monster killed as part of a slayer task.")
+const smithingDouble = new Fragment("Smithing Double", "Players have a 5/15/30% chance to smith an extra item when smithing items at an anvil, granting Smithing experience for the extra item. Extra items will drop to the floor if players have no inventory space.")
+const smoothCriminal = new Fragment("Smooth Criminal", "The chance to successfully pickpocket NPCs is increased by 15/25/50%. At level 2, players will no longer take damage when Stun (status)|stunned by a failed pickpocket attempt.")
+const specialDiscount = new Fragment("Special Discount", "Special attacks whose energy cost is greater than 50/40/25% will cost 50/40/25% energy instead.")
+const superiorTracking = new Fragment("Superior Tracking", "Superior slayer monsters have a 1 in 150/100/30 chance of spawning during a slayer task for eligible slayer monsters.")
+const tacticalDuelist = new Fragment("Tactical Duelist", "Melee weapon charges have a 20/40/80% chance to be saved.")
+const thrallDamage = new Fragment("Thrall Damage", "The max hit of thralls are increased by x2/x3/x4. Damage is rounded up.")
+const unholyRanger = new Fragment("Unholy Ranger", "The player's accuracy for ranged weapons is increased by 30/60/100% when they have no prayer points remaining. Excludes the dwarf multicannon.")
+const unholyWarrior = new Fragment("Unholy Warrior", "The player's accuracy for melee weapons is increased by 12/20/30% when they have no prayer points remaining.")
+const unholyWizard = new Fragment("Unholy Wizard", "The player's accuracy for magic attacks is increased by 40/70/125% when they have no prayer points remaining.")
+const venomaster = new Fragment("Venomaster", "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.")
+const zamorakianSight = new Fragment("Zamorakian Sight", "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.")
 
 const absoluteUnit = new SetEffect("Absolute Unit", [2, 3], new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
 const alchemist = new SetEffect("The Alchemist", [3], new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
@@ -105,7 +107,7 @@ const unchainedTalent = new SetEffect("Unchained Talent", [3], new Set([plankStr
 
 export default class Calculator extends React.Component {
     state = {
-        numSlots: 4,
+        numSlots: 7,
         fragments: [
             alchemaniac,
             arcaneConduit,
@@ -192,7 +194,15 @@ export default class Calculator extends React.Component {
         }, this.computeCombination)
     }
 
-    fragmentChanged = (idx) => {
+    onFragmentInBuildClicked = (frag) => {
+        const fragIdx = this.state.fragments.findIndex((f) => {
+            return f.name == frag.name
+        })
+
+        this.fragmentOwnedChanged(fragIdx)
+    }
+
+    fragmentOwnedChanged = (idx) => {
         this.setState({
             fragments: [
                 ...this.state.fragments.slice(0, idx),
@@ -215,10 +225,19 @@ export default class Calculator extends React.Component {
         this.setState({ setEffects: newSetEffects }, this.computeCombination)
     }
 
-    clearAllClicked = () => {
+    clearAllSetsClicked = () => {
         this.state.setEffects.forEach(se => se.chosen = false)
 
         this.setState({ setEffects: this.state.setEffects, buildPrompt: "Please select some set effects.", possibleBuild: null })
+    }
+
+    clearAllFragmentsClicked = () => {
+        this.state.fragments.forEach(fr => {
+            fr.owned = true
+            fr.mustInclude = false
+        })
+
+        this.setState({ fragments: this.state.fragments }, this.computeCombination)
     }
 
     setClicked = (idx) => {
@@ -263,36 +282,39 @@ export default class Calculator extends React.Component {
         const fragments = new Set()
         const chosenSetEffects = this.state.setEffects.filter(set => set.chosen)
 
-        if (chosenSetEffects.length <= 4) {
-            chosenSetEffects
-                .forEach(set => {
-                    [...set.fragments]
-                        .filter(f => f.owned)
-                        .forEach(f => {
-                            fragments.add(f)
-                        })
-                })
+        if (chosenSetEffects.length > 5) {
+            this.setState({ buildPrompt: "Cannot have more than 5 sets.", possibleBuild: null })
+            return
+        }
 
-            const perms = this.k_combinations(Array.from(fragments.values()), this.state.numSlots)
-
-            const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
-            const filtered = perms.filter(perm => {
-                if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
-                    return false
-                }
-                if (mustIncludeFrags.size > 0) {
-                    for (let frag of mustIncludeFrags) {
-                        if (!new Set(perm).has(frag)) return false
-                    }
-                }
-                return true
+        chosenSetEffects
+            .forEach(set => {
+                [...set.fragments]
+                    .filter(f => f.owned)
+                    .forEach(f => {
+                        fragments.add(f)
+                    })
             })
 
-            if (filtered.length > 0)
-                this.setState({ possibleBuild: filtered[0] })
-            else
-                this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
-        }
+        const perms = this.k_combinations(Array.from(fragments.values()), this.state.numSlots)
+
+        const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
+        const filtered = perms.filter(perm => {
+            if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
+                return false
+            }
+            if (mustIncludeFrags.size > 0) {
+                for (let frag of mustIncludeFrags) {
+                    if (!new Set(perm).has(frag)) return false
+                }
+            }
+            return true
+        })
+
+        if (filtered.length > 0)
+            this.setState({ possibleBuild: filtered[0] })
+        else
+            this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
     }
 
     worksForDesiredSetEffects(desiredSets, fragments) {
@@ -366,15 +388,16 @@ export default class Calculator extends React.Component {
     }
 
     onTierChanged = (e) => {
-        this.setState({numSlots: e.target.value}, this.computeCombination)
+        this.setState({ numSlots: e.target.value }, this.computeCombination)
     }
 
     render() {
         return (
             <div className="component-app">
-                <p>Please note this uses a very poor algorithm for determining set combinations so choosing 3-4 sets may lag temporarily. 5 or more sets is disabled to prevent browser freezing.</p>
+                <p>Choosing multiple sets may freeze for a few seconds. You cannot select more than 5 sets at a time.</p>
                 <div className="pure-u-1 min-height-145">
                     <h1>Possible Build</h1>
+                    <p>Click to exclude fragments. Re-enable them at the bottom of the page.</p>
                     <h3><label htmlFor="multi-state">Tier&nbsp;</label>
                         <select id="multi-state" className="pure-input-1" value={this.state.numSlots} onChange={this.onTierChanged}>
                             <option>1</option>
@@ -387,32 +410,35 @@ export default class Calculator extends React.Component {
                         </select>
                     </h3>
 
+                    <div className="center-horizontal" id="build">
                     {this.state.possibleBuild ?
                         this.state.possibleBuild.map((frag, i) =>
-                            <div key={frag.name} className="float-left mr-2">
-                                <div className="center-vertical">
-                                    <img src={frag.imageUrl} />
-                                    <span>{frag.name}</span>
-
+                            <div key={frag.name} 
+                            className="float-left mr-2 mb-10"
+                            onClick={() => this.onFragmentInBuildClicked(frag)}>
+                                <div className="text-center">
+                                    <img src={frag.imageUrl} height="50px" />
+                                    <div className="text">{frag.name}</div>
                                 </div>
                                 <div className="text-center">
-                                    {Array.from(frag.setEffects.values()).map(se => <img key={se.name} src={se.imageUrl} height="30px" />)}
+                                    {Array.from(frag.setEffects.values()).map(se => <img key={se.name} src={se.imageUrl} height="30px" className="set-mini" />)}
                                 </div>
                             </div>
                         ) :
                         <h3>{this.state.buildPrompt}</h3>
                     }
+                    </div>
+                    
                 </div>
                 <div className="pure-u-1">
                     <h1>Set Effects</h1>
                     <p>Click to enable/disable <button
-                        onClick={this.clearAllClicked}
-                        className="button-xsmall pure-button float-right mt--20">Clear All</button></p>
+                        onClick={this.clearAllSetsClicked}
+                        className="button-xsmall pure-button mt--20">Clear All</button></p>
                     {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
                             className={`set-effect pointer `}>
-                            <img
-                                onClick={() => this.setClicked(i)}
+                            <img onClick={() => this.setClicked(i)}
                                 className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
                             <div onClick={() => this.setClicked(i)}>{set.name}</div>
                             {set.counts.map((count) =>
@@ -424,7 +450,11 @@ export default class Calculator extends React.Component {
                     )}
                 </div>
                 <div className="pure-u-1 center-horizontal">
-                    <h1>Fragments</h1>
+                    <h1 className="float-left">Fragments</h1>
+                    <p className="float-left clear-button"><button
+                        onClick={this.clearAllFragmentsClicked}
+                        className="button-xsmall pure-button">Reset All</button></p>
+                    <div className="clear"/>
                     <div className="float-left mr-5">
                         <table className="pure-table">
                             <thead>
@@ -437,11 +467,13 @@ export default class Calculator extends React.Component {
                             <tbody>
                                 {this.state.fragments.slice(0, 26).map((frag, i) =>
                                     <tr key={frag.name}>
-                                        <td className="center-vertical">
+                                        <td className="center-vertical cursor-default"
+                                            data-tip data-for="fragment-info"
+                                            onMouseOver={() => this.props.onHoveredFragmentChanged(frag)}>
                                             <img src={frag.imageUrl} height="30px" />
                                             <span>{frag.name}</span>
                                         </td>
-                                        <td onClick={() => this.fragmentChanged(i)} className="text-center"><input type="checkbox" checked={frag.owned} readOnly></input></td>
+                                        <td onClick={() => this.fragmentOwnedChanged(i)} className="text-center"><input type="checkbox" checked={frag.owned} readOnly></input></td>
                                         <td onClick={() => this.fragmentMustIncludeChanged(i)} className="text-center"><input type="checkbox" checked={frag.mustInclude} readOnly></input></td>
                                     </tr>
                                 )}
@@ -460,11 +492,13 @@ export default class Calculator extends React.Component {
                             <tbody>
                                 {this.state.fragments.slice(26).map((frag, i) =>
                                     <tr key={frag.name}>
-                                        <td className="center-vertical">
+                                        <td className="center-vertical cursor-default"
+                                            data-tip data-for="fragment-info"
+                                            onMouseOver={() => this.props.onHoveredFragmentChanged(frag)}>
                                             <img src={frag.imageUrl} height="30px" />
                                             <span>{frag.name}</span>
                                         </td>
-                                        <td onClick={() => this.fragmentChanged(26 + i)} className="text-center"><input type="checkbox" checked={frag.owned} readOnly></input></td>
+                                        <td onClick={() => this.fragmentOwnedChanged(26 + i)} className="text-center"><input type="checkbox" checked={frag.owned} readOnly></input></td>
                                         <td onClick={() => this.fragmentMustIncludeChanged(26 + i)} className="text-center"><input type="checkbox" checked={frag.mustInclude} readOnly></input></td>
                                     </tr>
                                 )}
