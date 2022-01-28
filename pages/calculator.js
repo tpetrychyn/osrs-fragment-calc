@@ -105,7 +105,7 @@ const unchainedTalent = new SetEffect("Unchained Talent", [3], new Set([plankStr
 
 export default class Calculator extends React.Component {
     state = {
-        numSlots: 7,
+        numSlots: 4,
         fragments: [
             arcaneConduit,
             armadyleanDecree,
@@ -274,7 +274,19 @@ export default class Calculator extends React.Component {
 
             const perms = this.k_combinations(Array.from(fragments.values()), this.state.numSlots)
 
-            const filtered = perms.filter(perm => this.worksForDesiredSetEffects(chosenSetEffects, perm))
+            const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
+            const filtered = perms.filter(perm => {
+                if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
+                    return false
+                }
+                if (mustIncludeFrags.size > 0) {
+                    for (let frag of mustIncludeFrags) {
+                        if (!new Set(perm).has(frag)) return false
+                    }
+                }
+                return true
+            })
+
             if (filtered.length > 0)
                 this.setState({ possibleBuild: filtered[0] })
             else
