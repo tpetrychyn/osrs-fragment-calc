@@ -296,9 +296,11 @@ export default class Calculator extends React.Component {
                     })
             })
 
-        const perms = this.k_combinations(Array.from(fragments.values()), this.state.numSlots)
-
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
+        const includedFrags = new Set([...fragments.values(), ...mustIncludeFrags])
+
+        const perms = this.k_combinations(Array.from(includedFrags), this.state.numSlots)
+        
         const filtered = perms.filter(perm => {
             if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
                 return false
