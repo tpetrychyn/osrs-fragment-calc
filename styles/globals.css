@@ -6,6 +6,8 @@ body {
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   padding-bottom: 25px;
   max-width: 100%;
+  background-color: #172135;
+  color: #cbd9f4;
 }
 
 a {
@@ -22,7 +24,7 @@ a {
 }
 
 .chosen {
-  background-color: #cbffbe;
+  background-color: #27febc !important;
 }
 
 .center-vertical {
@@ -153,4 +155,9 @@ a {
 .clear-button {
   margin-top: 30px;
   margin-left: 5px;
+}
+
+.pure-button {
+  border: 1px solid #6f686e;  
+  background-color: #d1d1d1;
 }

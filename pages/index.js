@@ -14,10 +14,16 @@ export default function Home() {
 
 class CalculatorContainer extends React.Component {
   state = {
-    hoveredFragment: null
+    hoveredFragment: null,
+    hoveredSet: null
   }
+
   onHoveredFragmentChanged = (frag) => {
     this.setState({ hoveredFragment: frag })
+  }
+
+  onHoveredSetChanged = (set) => {
+    this.setState({ hoveredSet: set })
   }
 
   render() {
@@ -32,7 +38,16 @@ class CalculatorContainer extends React.Component {
 
             </div> : <div />
         } />
-        <Calculator onHoveredFragmentChanged={this.onHoveredFragmentChanged} />
+        <ReactTooltip place="top" type="dark" effect="solid" id="set-info" getContent={() =>
+          this.state.hoveredSet ?
+            <div className="text-center">
+              <h3>{this.state.hoveredSet.name}</h3>
+              <p dangerouslySetInnerHTML={{__html: this.state.hoveredSet.description}}></p>
+              {Array.from(this.state.hoveredSet.fragments.values()).map(fr => <img key={fr.name} src={fr.imageUrl} height="30px" className="set-mini" />)}
+
+            </div> : <div />
+        } />
+        <Calculator onHoveredFragmentChanged={this.onHoveredFragmentChanged} onHoveredSetChanged={this.onHoveredSetChanged} />
       </div>
     )
   }

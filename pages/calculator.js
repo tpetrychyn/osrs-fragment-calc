@@ -17,15 +17,17 @@ class Fragment {
 
 class SetEffect {
     name = ""
+    description = ""
     counts = []
     fragments
     imageUrl = ""
     chosen = false
     chosenCount = 0
 
-    constructor(name, counts, fragments, imageUrlOverride) {
+    constructor(name, counts, description, fragments, imageUrlOverride) {
         this.name = name
         this.counts = counts
+        this.description = description
         this.fragments = fragments
         this.fragments.forEach(f => {
             f.setEffects.add(this)
@@ -88,22 +90,24 @@ const unholyWizard = new Fragment("Unholy Wizard", "The player's accuracy for ma
 const venomaster = new Fragment("Venomaster", "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.")
 const zamorakianSight = new Fragment("Zamorakian Sight", "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.")
 
-const absoluteUnit = new SetEffect("Absolute Unit", [2, 3], new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
-const alchemist = new SetEffect("The Alchemist", [3], new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
-const chainMagic = new SetEffect("Chain Magic", [2, 3], new Set([thrallDamage, unholyWizard, zamorakianSight, mothersMagicFossils, deeperPockets, rootyTooty2xRuneys, hotOnTheTrail, imcandosApprentice]))
-const craftsman = new SetEffect("The Craftsman", [3], new Set([rumpleBowString, dragonOnABit, imcandosApprentice, graveRobber, profconstchional, proTips]))
-const doubleTap = new SetEffect("Double Tap", [2, 3], new Set([smithingDouble, rumpleBowString, roguesChompyFarm, unholyRanger, armadyleanDecree, chinchonkers, proTips]))
-const drakansTouch = new SetEffect("Drakan's Touch", [2, 3], new Set([unholyWizard, zamorakianSight, cluedIn, unholyRanger, prayingRespects, largerRecharger, specialDiscount]))
-const endlessKnowledge = new SetEffect("Endless Knowledge", [3], new Set([arcaneConduit, thrallDamage, enchantedJeweler, alchemaniac, plankStretcher, mothersMagicFossils]))
-const fastMetabolism = new SetEffect("Fast Metabolism", [2], new Set([graveRobber, rockSolid, bandosianMight, largerRecharger, hotOnTheTrail, venomaster]))
-const greedyGatherer = new SetEffect("Greedy Gatherer", [2, 3], new Set([messageInABottle, moltenMiner, rockSolid, certifiedFarmer, chefsCatch, slashBurn, justDruid]))
-const knifesEdge = new SetEffect("Knife's Edge", [2, 3], new Set([barbarianPestWars, messageInABottle, slayAllDay, bottomlessQuiver, livinOnAPrayer, prayingRespects, unholyWarrior, saradoministDefence]))
-const lastRecall = new SetEffect("Last Recall", [4], new Set([enchantedJeweler, runeEscape, cluedIn, slaynPay, superiorTracking, chinchonkers, homewrecker, profconstchional, rootyTooty2xRuneys, smoothCriminal]))
+const absoluteUnit = new SetEffect("Absolute Unit", [2, 3], "<b>[2]</b> Players take 30% less damage from monsters, with 50% of post-reduction damage reflected back to the attacker. <br/><br/> <b>[3]</b> Players take 50% less damage from monsters, with 100% of post-reduction damage reflected back to the attacker.", new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
+const alchemist = new SetEffect("The Alchemist", [3], "<b>[3]</b> When cooking food, making jugs of wine, cleaning grimy herbs, or mixing potions, all items in the player's inventory will be processed at once and reward the full amount of experience.", new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
+const chainMagic = new SetEffect("Chain Magic", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another magic attack after a successful hit with magic. <br/><br/><b>[3]</b> Players have a 60% chance to perform another magic attack after a successful hit with magic.", new Set([thrallDamage, unholyWizard, zamorakianSight, mothersMagicFossils, deeperPockets, rootyTooty2xRuneys, hotOnTheTrail, imcandosApprentice]))
+const craftsman = new SetEffect("The Craftsman", [3], "<b>[3]</b> When smelting ores, smithing bars and cannonballs, crafting with leather, glass, uncut gems, pottery, battlestaves, spinning flax and wool, fletching logs and cutting bolt tips, all items in the player's inventory will be processed at once and reward the full amount of experience.",  new Set([rumpleBowString, dragonOnABit, imcandosApprentice, graveRobber, profconstchional, proTips]))
+const doubleTap = new SetEffect("Double Tap", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another ranged attack after a successful hit with ranged. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another ranged attack after a successful hit with ranged.", new Set([smithingDouble, rumpleBowString, roguesChompyFarm, unholyRanger, armadyleanDecree, chinchonkers, proTips]))
+const drakansTouch = new SetEffect("Drakan's Touch", [2, 3], "<b>[2]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 5% of the damage dealt. <br/><br/> <b>[3]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 10% of the damage dealt.", new Set([unholyWizard, zamorakianSight, cluedIn, unholyRanger, prayingRespects, largerRecharger, specialDiscount]))
+const endlessKnowledge = new SetEffect("Endless Knowledge", [3], "<b>[3]</b> Players receive an arcane grimoire from The Sage, which allows the ability to freely switch spellbooks anywhere.", new Set([arcaneConduit, thrallDamage, enchantedJeweler, alchemaniac, plankStretcher, mothersMagicFossils]))
+const fastMetabolism = new SetEffect("Fast Metabolism", [2], "<b>[2]</b> Hitpoint regeneration is increased by x4.", new Set([graveRobber, rockSolid, bandosianMight, largerRecharger, hotOnTheTrail, venomaster]))
+const greedyGatherer = new SetEffect("Greedy Gatherer", [2, 3], "<b>[2]</b> Players will receive double the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming. <br/><br/> <b>[3]</b> Players will receive triple the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming.", new Set([messageInABottle, moltenMiner, rockSolid, certifiedFarmer, chefsCatch, slashBurn, justDruid]))
+const knifesEdge = new SetEffect("Knife's Edge", [2, 3], "<b>[2]</b> Players will deal 0.3% additional damage for every hitpoint missing.<br/><br/> <b>[3]</b> Players will deal 0.6% additional damage for every hitpoint missing.", new Set([barbarianPestWars, messageInABottle, slayAllDay, bottomlessQuiver, livinOnAPrayer, prayingRespects, unholyWarrior, saradoministDefence]))
+const lastRecall = new SetEffect("Last Recall", [4], "<b>[4]</b> Players receive a crystal of memories from The Sage, which allows them to teleport themselves back to the location where their most recent teleport occurred, with some caveats regarding its usage.", new Set([enchantedJeweler, runeEscape, cluedIn, slaynPay, superiorTracking, chinchonkers, homewrecker, profconstchional, rootyTooty2xRuneys, smoothCriminal]))
+const personalBanker = new SetEffect("Personal Banker", [2, 3], "<b>[2]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming have a 50% chance to be deposited directly to the player's bank. <br/><br/> <b>[3]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming are deposited directly to the player's bank.", new Set([smithingDouble, alchemaniac, moltenMiner, seedyBusiness, catchOfTheDay, deeperPockets]))
+const trailblazer = new SetEffect("Trailblazer", [3], "<b>[3]</b> Players receive a portable waystone from The Sage, which can teleport to other waystones.", new Set([arcaneConduit, goldenBrickRoad, bottomlessQuiver, seedyBusiness, chefsCatch, smoothCriminal, unholyWarrior]))
+const twinStrikes = new SetEffect("Twin Strikes", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another melee attack after a successful hit with melee. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another melee attack after a successful hit with melee.", new Set([barbarianPestWars, slaynPay, divineRestoration, livinOnAPrayer, tacticalDuelist, bandosianMight, specialDiscount]))
+const unchainedTalent = new SetEffect("Unchained Talent", [3], "<b>[3]</b> All non-combat skills are permanently boosted by +8. This boost is not limited to unlocked skills.", new Set([plankStretcher, roguesChompyFarm, dineDash, catchOfTheDay, slashBurn, mixologist]))
+
 lastRecall.imageUrl = "https://oldschool.runescape.wiki/images/Last_Recall_%28Shattered_Relics%29_detail.png"
-const personalBanker = new SetEffect("Personal Banker", [2, 3], new Set([smithingDouble, alchemaniac, moltenMiner, seedyBusiness, catchOfTheDay, deeperPockets]))
-const trailblazer = new SetEffect("Trailblazer", [3], new Set([arcaneConduit, goldenBrickRoad, bottomlessQuiver, seedyBusiness, chefsCatch, smoothCriminal, unholyWarrior]))
-const twinStrikes = new SetEffect("Twin Strikes", [2, 3], new Set([barbarianPestWars, slaynPay, divineRestoration, livinOnAPrayer, tacticalDuelist, bandosianMight, specialDiscount]))
-const unchainedTalent = new SetEffect("Unchained Talent", [3], new Set([plankStretcher, roguesChompyFarm, dineDash, catchOfTheDay, slashBurn, mixologist]))
+
 
 export default class Calculator extends React.Component {
     state = {
@@ -299,19 +303,25 @@ export default class Calculator extends React.Component {
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
         const includedFrags = new Set([...fragments.values(), ...mustIncludeFrags])
 
-        const perms = this.k_combinations(Array.from(includedFrags), this.state.numSlots)
+        let filtered = []
+        for (let i=2;i<=this.state.numSlots;i++) {
+            // build perms from 2 to numSlots to short circuit if there is a combo requiring less than all slots
+            const perms = this.k_combinations(Array.from(includedFrags), i)
         
-        const filtered = perms.filter(perm => {
-            if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
-                return false
-            }
-            if (mustIncludeFrags.size > 0) {
-                for (let frag of mustIncludeFrags) {
-                    if (!new Set(perm).has(frag)) return false
+            filtered = perms.filter(perm => {
+                if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
+                    return false
                 }
-            }
-            return true
-        })
+                if (mustIncludeFrags.size > 0) {
+                    for (let frag of mustIncludeFrags) {
+                        if (!new Set(perm).has(frag)) return false
+                    }
+                }
+                return true
+            })
+
+            if (filtered.length > 0) break;
+        }
 
         if (filtered.length > 0)
             this.setState({ possibleBuild: filtered[0] })
@@ -439,7 +449,9 @@ export default class Calculator extends React.Component {
                         className="button-xsmall pure-button mt--20">Clear All</button></p>
                     {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
-                            className={`set-effect pointer `}>
+                            className="set-effect pointer"
+                            data-tip data-for="set-info"
+                            onMouseOver={() => this.props.onHoveredSetChanged(set)}>
                             <img onClick={() => this.setClicked(i)}
                                 className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
                             <div onClick={() => this.setClicked(i)}>{set.name}</div>
