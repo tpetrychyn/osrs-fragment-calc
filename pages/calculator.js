@@ -451,9 +451,10 @@ export default class Calculator extends React.Component {
                     {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
                             className="set-effect pointer"
-                            data-tip 
-                            data-for={`${isDesktop ? "set-info" : ""}`}
-                            onMouseOver={() => this.props.onHoveredSetChanged(set)}>
+                            // data-tip 
+                            // data-for={`${isDesktop ? "set-info" : ""}`}
+                            // onMouseOver={() => this.props.onHoveredSetChanged(set)}>
+                            >
                             <img onClick={() => this.setClicked(i)}
                                 className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
                             <div onClick={() => this.setClicked(i)}>{set.name}</div>
