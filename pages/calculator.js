@@ -281,8 +281,6 @@ export default class Calculator extends React.Component {
 
             this.setState({ setEffects: newSetEffects }, this.computeCombination)
         }
-
-        this.props.onHoveredSetChanged(null)
     }
 
     computeCombination() {
