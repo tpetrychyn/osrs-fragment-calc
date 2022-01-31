@@ -38,7 +38,7 @@ class CalculatorContainer extends React.Component {
 
             </div> : <div />
         } />
-        <ReactTooltip place="top" type="dark" effect="solid" id="set-info" getContent={() =>
+        <ReactTooltip place="top" type="dark" effect="solid" id="set-info" delayShow={500} getContent={() =>
           this.state.hoveredSet ?
             <div className="text-center">
               <h3>{this.state.hoveredSet.name}</h3>
