@@ -1,4 +1,5 @@
 import React from "react"
+import {isMobile} from 'react-device-detect';
 
 class Fragment {
     name = ""
@@ -450,7 +451,8 @@ export default class Calculator extends React.Component {
                     {this.state.setEffects.map((set, i) =>
                         <div key={set.name}
                             className="set-effect pointer"
-                            data-tip data-for="set-info"
+                            data-tip 
+                            data-for={`${!isMobile ? "set-info" : ""}`}
                             onMouseOver={() => this.props.onHoveredSetChanged(set)}>
                             <img onClick={() => this.setClicked(i)}
                                 className={set.chosen ? "" : "grayscale"} src={set.imageUrl} height="60px" /><br />
