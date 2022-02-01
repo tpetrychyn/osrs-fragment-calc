@@ -1,16 +1,18 @@
 import React from "react"
-import {isDesktop} from 'react-device-detect';
+import { withRouter } from 'next/router'
 
 class Fragment {
     name = ""
+    id = -1
     description = ""
     setEffects = new Set()
     imageUrl = ""
     owned = true
     mustInclude = false
 
-    constructor(name, description) {
+    constructor(name, id, description) {
         this.name = name
+        this.id = id
         this.description = description
         this.imageUrl = "https://oldschool.runescape.wiki/images/" + name.replaceAll(" ", "_") + ".png"
     }
@@ -37,59 +39,59 @@ class SetEffect {
     }
 }
 
-const alchemaniac = new Fragment("Alchemaniac", "Players will receive 15/30/50% extra coins when casting High Level Alchemy on items.")
-const arcaneConduit = new Fragment("Arcane Conduit", "Runes and magic weapon charges have a 40/60/90% chance to be saved.")
-const armadyleanDecree = new Fragment("Armadylean Decree", "When wielding four Armadylean items, enchanted bolt effects have a 25/50/100% increased chance to activate.")
-const bandosianMight = new Fragment("Bandosian Might", "When wielding four Bandosian items, the player's max melee hit is increased by 1/2/4 for every attack speed a weapon has.")
-const barbarianPestWars = new Fragment("Barbarian Pest Wars", "Reward currency earned for playing the following minigames are increased by x2/x3/x4:")
-const bottomlessQuiver = new Fragment("Bottomless Quiver", "Ranged ammunition and ranged weapon charges have a 40/60/90% chance to be saved, excluding Chinchompa (weapon)|chinchompas.")
-const catchOfTheDay = new Fragment("Catch Of The Day", "All types of Fishing activities have a 1 in 300/200/80 chance, per catch, to roll the rare drop table once.")
-const certifiedFarmer = new Fragment("Certified Farmer", "Farming yields have a 25/50/100% chance to be doubled, and are converted to bank notes upon harvest.")
-const chefsCatch = new Fragment("Chef's Catch", "Players have a 20/35/50% chance of cooking a raw fish upon catching them. Cooking experience is granted, even if players do not have the level required to cook them normally.")
-const chinchonkers = new Fragment("Chinchonkers", "Catching Chinchompa (disambiguation)|chinchompas grant 50/100/100% more Hunter experience. At level 3, players will receive two chinchompas per successful capture.")
-const cluedIn = new Fragment("Clued In", "The drop rate of scroll boxes from NPCs are increased to 1 in 30/25/15.")
-const deeperPockets = new Fragment("Deeper Pockets", "Players have a 20/50/100% chance to receive double loot when pickpocketing NPCs. This stacks multiplicatively with rogue equipment.")
-const dineDash = new Fragment("Dine & Dash", "Players have a 10/20/50% chance to receive an extra piece of cooked food while cooking.")
-const divineRestoration = new Fragment("Divine Restoration", "Players will have their prayer points restored by one every 15/9/3.6 seconds.")
-const dragonOnABit = new Fragment("Dragon On A Bit", "Players have a 10/20/40% chance to save the materials used whilst crafting dragonhide armour.")
-const enchantedJeweler = new Fragment("Enchanted Jeweler", "Each enchantment spell cast will enchant up to 5/10/25 pieces of jewellery, granting the full Magic experience.")
-const goldenBrickRoad = new Fragment("Golden Brick Road", "When a mark of grace appears when training on a Rooftop Agility Course, 4,000/7,000/15,000 coins will appear alongside it.")
-const graveRobber = new Fragment("Grave Robber", "The amount of hallowed marks received when looting Coffin (Hallowed Sepulchre)|coffins within the Hallowed Sepulchre is increased by 50/150/300%.")
-const homewrecker = new Fragment("Homewrecker", "Players have a x2/x3/x4 chance of receiving bird nests when chopping trees, and are sent to the bank rather than falling to the ground.")
-const hotOnTheTrail = new Fragment("Hot On The Trail", "Players have a 2/5/10% chance to obtain a scroll box whilst lighting logs via Firemaking.")
-const imcandosApprentice = new Fragment("Imcando's Apprentice", "Players have a 20/50/75% chance to craft an extra piece of gemmed jewellery, granting Crafting experience for the extra jewellery.")
-const justDruid = new Fragment("Just Druid!", "Players will receive 10/20/40% extra Herblore experience for each grimy herb cleaned.")
-const largerRecharger = new Fragment("Larger Recharger", "Players will have their special attack energy restored by 10% every 25/20/10 seconds.")
-const livinOnAPrayer = new Fragment("Livin' On A Prayer", "The drain rate of activated prayers are reduced by 15/30/60%.")
-const messageInABottle = new Fragment("Message In A Bottle", "The chance of receiving clue geodes, clue nest|nests, and Clue bottle|bottles from skilling are increased by x3/x5/x10.")
-const mixologist = new Fragment("Mixologist", "Players will have a 25/50/100% chance to mix a 4-dose potion rather than a 3-dose potion, with a 20/50/100% chance to save the secondary ingredient.")
-const moltenMiner = new Fragment("Molten Miner", "If applicable, ores mined have a 20/50/100% chance to be smelted into bars. Smithing experience is granted, even if players do not have the level required to smelt them normally.")
-const mothersMagicFossils = new Fragment("Mother's Magic Fossils", "The chance of receiving golden nuggets from the Motherlode Mine is increased by x2/x3/x4. The amount of pizazz points received from activities in the Mage Training Arena is increased by x2/x3/x4. The chance of receiving fossils from activities on Fossil Island is increased by x2/x3/x4.")
-const plankStretcher = new Fragment("Plank Stretcher", "Players will have a 10/20/50% chance to save their planks whilst training Construction.")
-const prayingRespects = new Fragment("Praying Respects", "Remains are automatically buried/scattered, granting 50/100/200% of the usual Prayer experience. League experience multipliers are applied.")
-const proTips = new Fragment("Pro Tips", "Players will receive 30/50/100% more bolt tips per gem whilst making them.")
-const profconstchional = new Fragment("Profletchional", "Fletching logs and stringing bows grant 30/50/100% more Fletching experience.")
-const rockSolid = new Fragment("Rock Solid", "Iron rock|Iron, Sandstone rock|sandstone, and granite rocks have a 25/50/75% chance to not be depleted upon being mined.")
-const roguesChompyFarm = new Fragment("Rogues' Chompy Farm", "The chance of successfully cracking the wall safe at the end of the Rogues' Den maze is increased by 10/20/40%. Each chompy bird killed will count as 2/3/4 kills when checking chompy kill-count via the ogre bow. The amount of points earned from the Tithe Farm is increased by x2/x3/x4.")
-const rootyTooty2xRuneys = new Fragment("Rooty Tooty 2x Runeys", "Players have a 20/40/80% chance to receive an extra rune for each rune crafted.")
-const rumpleBowString = new Fragment("Rumple-Bow-String", "The Spin Flax spell gives 10/15/27 bow strings instead of the usual 5.")
-const runeEscape = new Fragment("Rune Escape", "Players will no longer receive mind (lv-1), body (lv-2), elemental runes (lv-3) when crafting runes at the Ourania Altar.")
-const saradoministDefence = new Fragment("Saradominist Defence", "When wielding four Saradominist items, the player's max hit is increased by 2/5/10 if they have taken damage in the last 3.6 seconds.")
-const seedyBusiness = new Fragment("Seedy Business", "Players have a 10/25/50% chance to save their seed upon planting it in a farming patch.")
-const slashBurn = new Fragment("Slash & Burn", "Players have a 20/35/50% chance of burning logs upon chopping them. Firemaking experience is granted, even if players do not have the level required to burn them normally.")
-const slaynPay = new Fragment("Slay 'n' Pay", "Players will earn 10/20/50% more slayer reward points upon completing a slayer task.")
-const slayAllDay = new Fragment("Slay All Day", "Players will heal 1/2/3 hitpoints for every monster killed as part of a slayer task.")
-const smithingDouble = new Fragment("Smithing Double", "Players have a 5/15/30% chance to smith an extra item when smithing items at an anvil, granting Smithing experience for the extra item. Extra items will drop to the floor if players have no inventory space.")
-const smoothCriminal = new Fragment("Smooth Criminal", "The chance to successfully pickpocket NPCs is increased by 15/25/50%. At level 2, players will no longer take damage when Stun (status)|stunned by a failed pickpocket attempt.")
-const specialDiscount = new Fragment("Special Discount", "Special attacks whose energy cost is greater than 50/40/25% will cost 50/40/25% energy instead.")
-const superiorTracking = new Fragment("Superior Tracking", "Superior slayer monsters have a 1 in 150/100/30 chance of spawning during a slayer task for eligible slayer monsters.")
-const tacticalDuelist = new Fragment("Tactical Duelist", "Melee weapon charges have a 20/40/80% chance to be saved.")
-const thrallDamage = new Fragment("Thrall Damage", "The max hit of thralls are increased by x2/x3/x4. Damage is rounded up.")
-const unholyRanger = new Fragment("Unholy Ranger", "The player's accuracy for ranged weapons is increased by 30/60/100% when they have no prayer points remaining. Excludes the dwarf multicannon.")
-const unholyWarrior = new Fragment("Unholy Warrior", "The player's accuracy for melee weapons is increased by 12/20/30% when they have no prayer points remaining.")
-const unholyWizard = new Fragment("Unholy Wizard", "The player's accuracy for magic attacks is increased by 40/70/125% when they have no prayer points remaining.")
-const venomaster = new Fragment("Venomaster", "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.")
-const zamorakianSight = new Fragment("Zamorakian Sight", "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.")
+const alchemaniac = new Fragment("Alchemaniac", 36," Players will receive 15/30/50% extra coins when casting High Level Alchemy on items.")
+const arcaneConduit = new Fragment("Arcane Conduit", 6, "Runes and magic weapon charges have a 40/60/90% chance to be saved.")
+const armadyleanDecree = new Fragment("Armadylean Decree", 18, "When wielding four Armadylean items, enchanted bolt effects have a 25/50/100% increased chance to activate.")
+const bandosianMight = new Fragment("Bandosian Might", 17, "When wielding four Bandosian items, the player's max melee hit is increased by 1/2/4 for every attack speed a weapon has.")
+const barbarianPestWars = new Fragment("Barbarian Pest Wars", 51, "Reward currency earned for playing the following minigames are increased by x2/x3/x4:")
+const bottomlessQuiver = new Fragment("Bottomless Quiver", 4, "Ranged ammunition and ranged weapon charges have a 40/60/90% chance to be saved, excluding Chinchompa (weapon)|chinchompas.")
+const catchOfTheDay = new Fragment("Catch Of The Day", 22, "All types of Fishing activities have a 1 in 300/200/80 chance, per catch, to roll the rare drop table once.")
+const certifiedFarmer = new Fragment("Certified Farmer", 41, "Farming yields have a 25/50/100% chance to be doubled, and are converted to bank notes upon harvest.")
+const chefsCatch = new Fragment("Chef's Catch", 21, "Players have a 20/35/50% chance of cooking a raw fish upon catching them. Cooking experience is granted, even if players do not have the level required to cook them normally.")
+const chinchonkers = new Fragment("Chinchonkers", 39, "Catching Chinchompa (disambiguation)|chinchompas grant 50/100/100% more Hunter experience. At level 3, players will receive two chinchompas per successful capture.")
+const cluedIn = new Fragment("Clued In", 49, "The drop rate of scroll boxes from NPCs are increased to 1 in 30/25/15.")
+const deeperPockets = new Fragment("Deeper Pockets", 24, "Players have a 20/50/100% chance to receive double loot when pickpocketing NPCs. This stacks multiplicatively with rogue equipment.")
+const dineDash = new Fragment("Dine & Dash", 40, "Players have a 10/20/50% chance to receive an extra piece of cooked food while cooking.")
+const divineRestoration = new Fragment("Divine Restoration", 9, "Players will have their prayer points restored by one every 15/9/3.6 seconds.")
+const dragonOnABit = new Fragment("Dragon On A Bit", 33, "Players have a 10/20/40% chance to save the materials used whilst crafting dragonhide armour.")
+const enchantedJeweler = new Fragment("Enchanted Jeweler", 35, "Each enchantment spell cast will enchant up to 5/10/25 pieces of jewellery, granting the full Magic experience.")
+const goldenBrickRoad = new Fragment("Golden Brick Road", 45, "When a mark of grace appears when training on a Rooftop Agility Course, 4,000/7,000/15,000 coins will appear alongside it.")
+const graveRobber = new Fragment("Grave Robber", 46, "The amount of hallowed marks received when looting Coffin (Hallowed Sepulchre)|coffins within the Hallowed Sepulchre is increased by 50/150/300%.")
+const homewrecker = new Fragment("Homewrecker", 26, "Players have a x2/x3/x4 chance of receiving bird nests when chopping trees, and are sent to the bank rather than falling to the ground.")
+const hotOnTheTrail = new Fragment("Hot On The Trail", 27, "Players have a 2/5/10% chance to obtain a scroll box whilst lighting logs via Firemaking.")
+const imcandosApprentice = new Fragment("Imcando's Apprentice", 34, "Players have a 20/50/75% chance to craft an extra piece of gemmed jewellery, granting Crafting experience for the extra jewellery.")
+const justDruid = new Fragment("Just Druid!", 44, "Players will receive 10/20/40% extra Herblore experience for each grimy herb cleaned.")
+const largerRecharger = new Fragment("Larger Recharger", 11, "Players will have their special attack energy restored by 10% every 25/20/10 seconds.")
+const livinOnAPrayer = new Fragment("Livin' On A Prayer", 8, "The drain rate of activated prayers are reduced by 15/30/60%.")
+const messageInABottle = new Fragment("Message In A Bottle", 50, "The chance of receiving clue geodes, clue nest|nests, and Clue bottle|bottles from skilling are increased by x3/x5/x10.")
+const mixologist = new Fragment("Mixologist", 43, "Players will have a 25/50/100% chance to mix a 4-dose potion rather than a 3-dose potion, with a 20/50/100% chance to save the secondary ingredient.")
+const moltenMiner = new Fragment("Molten Miner", 30, "If applicable, ores mined have a 20/50/100% chance to be smelted into bars. Smithing experience is granted, even if players do not have the level required to smelt them normally.")
+const mothersMagicFossils = new Fragment("Mother's Magic Fossils", 53, "The chance of receiving golden nuggets from the Motherlode Mine is increased by x2/x3/x4. The amount of pizazz points received from activities in the Mage Training Arena is increased by x2/x3/x4. The chance of receiving fossils from activities on Fossil Island is increased by x2/x3/x4.")
+const plankStretcher = new Fragment("Plank Stretcher", 28, "Players will have a 10/20/50% chance to save their planks whilst training Construction.")
+const prayingRespects = new Fragment("Praying Respects", 10, "Remains are automatically buried/scattered, granting 50/100/200% of the usual Prayer experience. League experience multipliers are applied.")
+const proTips = new Fragment("Pro Tips", 38, "Players will receive 30/50/100% more bolt tips per gem whilst making them.")
+const profconstchional = new Fragment("Profletchional", 37, "Fletching logs and stringing bows grant 30/50/100% more Fletching experience.")
+const rockSolid = new Fragment("Rock Solid", 29, "Iron rock|Iron, Sandstone rock|sandstone, and granite rocks have a 25/50/75% chance to not be depleted upon being mined.")
+const roguesChompyFarm = new Fragment("Rogues' Chompy Farm", 52, "The chance of successfully cracking the wall safe at the end of the Rogues' Den maze is increased by 10/20/40%. Each chompy bird killed will count as 2/3/4 kills when checking chompy kill-count via the ogre bow. The amount of points earned from the Tithe Farm is increased by x2/x3/x4.")
+const rootyTooty2xRuneys = new Fragment("Rooty Tooty 2x Runeys", 47, "Players have a 20/40/80% chance to receive an extra rune for each rune crafted.")
+const rumpleBowString = new Fragment("Rumple-Bow-String", 32, "The Spin Flax spell gives 10/15/27 bow strings instead of the usual 5.")
+const runeEscape = new Fragment("Rune Escape", 48, "Players will no longer receive mind (lv-1), body (lv-2), elemental runes (lv-3) when crafting runes at the Ourania Altar.")
+const saradoministDefence = new Fragment("Saradominist Defence", 20,  "When wielding four Saradominist items, the player's max hit is increased by 2/5/10 if they have taken damage in the last 3.6 seconds.")
+const seedyBusiness = new Fragment("Seedy Business", 42, "Players have a 10/25/50% chance to save their seed upon planting it in a farming patch.")
+const slashBurn = new Fragment("Slash & Burn", 25, "Players have a 20/35/50% chance of burning logs upon chopping them. Firemaking experience is granted, even if players do not have the level required to burn them normally.")
+const slaynPay = new Fragment("Slay 'n' Pay", 16, "Players will earn 10/20/50% more slayer reward points upon completing a slayer task.")
+const slayAllDay = new Fragment("Slay All Day", 14, "Players will heal 1/2/3 hitpoints for every monster killed as part of a slayer task.")
+const smithingDouble = new Fragment("Smithing Double", 31, "Players have a 5/15/30% chance to smith an extra item when smithing items at an anvil, granting Smithing experience for the extra item. Extra items will drop to the floor if players have no inventory space.")
+const smoothCriminal = new Fragment("Smooth Criminal", 23, "The chance to successfully pickpocket NPCs is increased by 15/25/50%. At level 2, players will no longer take damage when Stun (status)|stunned by a failed pickpocket attempt.")
+const specialDiscount = new Fragment("Special Discount", 12, "Special attacks whose energy cost is greater than 50/40/25% will cost 50/40/25% energy instead.")
+const superiorTracking = new Fragment("Superior Tracking", 15, "Superior slayer monsters have a 1 in 150/100/30 chance of spawning during a slayer task for eligible slayer monsters.")
+const tacticalDuelist = new Fragment("Tactical Duelist", 2, "Melee weapon charges have a 20/40/80% chance to be saved.")
+const thrallDamage = new Fragment("Thrall Damage", 7, "The max hit of thralls are increased by x2/x3/x4. Damage is rounded up.")
+const unholyRanger = new Fragment("Unholy Ranger", 3, "The player's accuracy for ranged weapons is increased by 30/60/100% when they have no prayer points remaining. Excludes the dwarf multicannon.")
+const unholyWarrior = new Fragment("Unholy Warrior", 1, "The player's accuracy for melee weapons is increased by 12/20/30% when they have no prayer points remaining.")
+const unholyWizard = new Fragment("Unholy Wizard", 5, "The player's accuracy for magic attacks is increased by 40/70/125% when they have no prayer points remaining.")
+const venomaster = new Fragment("Venomaster", 13, "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.")
+const zamorakianSight = new Fragment("Zamorakian Sight", 19, "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.")
 
 const absoluteUnit = new SetEffect("Absolute Unit", [2, 3], "<b>[2]</b> Players take 30% less damage from monsters, with 50% of post-reduction damage reflected back to the attacker. <br/><br/> <b>[3]</b> Players take 50% less damage from monsters, with 100% of post-reduction damage reflected back to the attacker.", new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
 const alchemist = new SetEffect("The Alchemist", [3], "<b>[3]</b> When cooking food, making jugs of wine, cleaning grimy herbs, or mixing potions, all items in the player's inventory will be processed at once and reward the full amount of experience.", new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
@@ -110,7 +112,7 @@ const unchainedTalent = new SetEffect("Unchained Talent", [3], "<b>[3]</b> All n
 lastRecall.imageUrl = "https://oldschool.runescape.wiki/images/Last_Recall_%28Shattered_Relics%29_detail.png"
 
 
-export default class Calculator extends React.Component {
+class Calculator extends React.Component {
     state = {
         numSlots: 7,
         fragments: [
@@ -404,6 +406,36 @@ export default class Calculator extends React.Component {
         this.setState({ numSlots: e.target.value }, this.computeCombination)
     }
 
+    componentDidMount () {
+        console.log(this.props.router)
+        const params = new URLSearchParams(this.props.router.asPath)
+        const notOwned = params.get('notOwned')
+        if (notOwned) {
+            const notOwnedArr = notOwned.split(",").map(Number)
+            notOwnedArr.forEach(no => {
+                const frag = this.state.fragments.find(fr => fr.id == no)
+                if (frag) frag.owned = false
+            })
+        }
+
+        const mustInclude = params.get('mustInclude')
+        if (mustInclude) {
+            const mustIncludeArr = mustInclude.split(",").map(Number)
+            mustIncludeArr.forEach(no => {
+                const frag = this.state.fragments.find(fr => fr.id == no)
+                if (frag) frag.mustInclude = true
+            })
+        }
+
+        let tier = this.state.numSlots
+        const tierParam = params.get('tier')
+        if (tierParam) {
+            tier = parseInt(tierParam)
+        }
+
+        this.setState({ fragments: this.state.fragments, numSlots: tier }, this.computeCombination)
+    }
+
     render() {
         return (
             <div className="component-app">
@@ -527,3 +559,5 @@ export default class Calculator extends React.Component {
         );
     }
 }
+
+export default withRouter(Calculator)
