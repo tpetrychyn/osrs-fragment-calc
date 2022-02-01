@@ -1,5 +1,4 @@
 import React from "react"
-import { withRouter } from 'next/router'
 
 class Fragment {
     name = ""
@@ -112,7 +111,7 @@ const unchainedTalent = new SetEffect("Unchained Talent", [3], "<b>[3]</b> All n
 lastRecall.imageUrl = "https://oldschool.runescape.wiki/images/Last_Recall_%28Shattered_Relics%29_detail.png"
 
 
-class Calculator extends React.Component {
+export default class Calculator extends React.Component {
     state = {
         numSlots: 7,
         fragments: [
@@ -407,8 +406,8 @@ class Calculator extends React.Component {
     }
 
     componentDidMount () {
-        console.log(this.props.router)
-        const params = new URLSearchParams(this.props.router.asPath)
+        const params = new URLSearchParams(window.location.search)
+        
         const notOwned = params.get('notOwned')
         if (notOwned) {
             const notOwnedArr = notOwned.split(",").map(Number)
@@ -559,5 +558,3 @@ class Calculator extends React.Component {
         );
     }
 }
-
-export default withRouter(Calculator)
