@@ -366,14 +366,14 @@ export default class Calculator extends React.Component {
                 if (fewestRemaining < sumFragmentsRemaining)
                 {
                     sumFragmentsRemaining = fewestRemaining
-                    bestFragments = [...mustIncludeFrags, ...perm]
+                    bestFragments = [...perm]
                 }
             }
         }
         
         // After all these have been exhausted, if there are still fragments remaining to be filled, check how many slots are left. 
         // If there aren't enough slots to satisfy the remaining set effects, it's impossible.
-        if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length)
+        if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length - mustIncludeFrags.size)
         {
             this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
             return
@@ -385,6 +385,8 @@ export default class Calculator extends React.Component {
                 if (se.name in fragmentsRemaining)
                     fragmentsRemaining[se.name] = Math.max(0, fragmentsRemaining[se.name] - 1)
         }))
+
+        bestFragments = [...bestFragments, ...mustIncludeFrags]
         
         // If we get to this point, from here we just fill in whatever slots are remaining with a fragment that has the necessary set effect.
         for (var se in fragmentsRemaining)
