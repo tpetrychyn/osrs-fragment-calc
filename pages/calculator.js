@@ -378,6 +378,9 @@ export default class Calculator extends React.Component {
             const seteffect = this.state.setEffects.filter(s => s.name == se)[0]
             for (var frag of seteffect.fragments)
             {
+                if (!frag.owned)
+                    continue
+
                 if (bestFragments.find(f => f.id == frag.id || fragmentsRemaining[se] == 0)) // can't break from this for loop, so just continue
                     continue
 
