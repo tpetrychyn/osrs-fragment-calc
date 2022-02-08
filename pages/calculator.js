@@ -576,6 +576,11 @@ export default class Calculator extends React.Component {
 
         const urlParams = new URLSearchParams(params)
 
+        window.dataLayer.push({
+            event: 'click-share',
+            urlParams
+        })
+
         const origin = window.location.origin
         const path = window.location.pathname
 
