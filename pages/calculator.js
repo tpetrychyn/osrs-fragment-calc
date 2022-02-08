@@ -4,7 +4,7 @@ class Fragment {
     name = ""
     id = -1
     description = ""
-    setEffects = new Set()
+    setEffects = []
     imageUrl = ""
     owned = true
     mustInclude = false
@@ -32,7 +32,7 @@ class SetEffect {
         this.description = description
         this.fragments = fragments
         this.fragments.forEach(f => {
-            f.setEffects.add(this)
+            f.setEffects.push(this)
         })
         this.imageUrl = "https://oldschool.runescape.wiki/images/" + name.replaceAll(" ", "_") + "_detail.png"
     }
@@ -303,39 +303,120 @@ export default class Calculator extends React.Component {
             })
 
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
-        const includedFrags = new Set([...fragments.values(), ...mustIncludeFrags])
 
-        let filtered = []
-        for (let i=2;i<=this.state.numSlots;i++) {
-            // build perms from 2 to numSlots to short circuit if there is a combo requiring less than all slots
-            const perms = this.k_combinations(Array.from(includedFrags), i)
-        
-            filtered = perms.filter(perm => {
-                if (!this.worksForDesiredSetEffects(chosenSetEffects, perm)) {
-                    return false
-                }
-                if (mustIncludeFrags.size > 0) {
-                    for (let frag of mustIncludeFrags) {
-                        if (!new Set(perm).has(frag)) return false
-                    }
-                }
-                return true
-            })
-
-            if (filtered.length > 0) break;
+        let numSlotsRemaining = this.state.numSlots
+        if (mustIncludeFrags.size > numSlotsRemaining) {
+            this.setState({ buildPrompt: "Cannot include more fragments than there are slots available.", possibleBuild: null})
+            return
         }
 
-        if (filtered.length > 0)
-            this.setState({ possibleBuild: filtered[0] })
-        else
+        // For each selected set effect, have a number of remaining needed fragments
+        let fragmentsRemaining = {}
+        chosenSetEffects.forEach(set =>{fragmentsRemaining[set.name] = set.chosenCount})
+        
+        // Force inclusion of the fragments that must be included.
+        let filtered = [...mustIncludeFrags]
+
+        // Update the counts of all the set effect fragments still needed
+        mustIncludeFrags.forEach(frag => frag.setEffects.forEach(se => 
+            { 
+                if (se.name in fragmentsRemaining)
+                    fragmentsRemaining[se.name] = Math.max(0, fragmentsRemaining[se.name] - 1)
+        }))
+
+        let sumFragmentsRemaining = 0
+        for (var key in fragmentsRemaining)
+            sumFragmentsRemaining += fragmentsRemaining[key]
+
+        if (sumFragmentsRemaining == 0)
+        {
+            this.setState({ possibleBuild: filtered})
+            return
+        } 
+
+        // All of the fragments with two effects (not including the mustInclude, because those are mandatory anyway)
+        const doubleFrags = [...fragments].filter(frag => !frag.mustInclude && chosenSetEffects.find(s => s == frag.setEffects[0]) && chosenSetEffects.find(s => s == frag.setEffects[1]))
+
+        // Build all possible combinations of the fragments that must be included and the double fragments.
+        // Build them or sort them in such a way that they're ordered fewest fragments to most fragments.
+
+        //let fewestRemaining = sumFragmentsRemaining
+        let bestFragments = [...filtered]
+        for (let i = 1; i < this.state.numSlots - mustIncludeFrags.size; i++)
+        {
+            // Get all the permutations of size i
+            const perms = this.k_combinations(doubleFrags, i)
+
+            perms.forEach(perm =>
+            {
+                const tempFragmentsRemaining = Object.assign({}, fragmentsRemaining)
+                perm.forEach(frag => frag.setEffects.forEach(se => 
+                    { 
+                        if (se.name in tempFragmentsRemaining)
+                            tempFragmentsRemaining[se.name] = Math.max(0, tempFragmentsRemaining[se.name] - 1)
+                }))
+                
+                let fewestRemaining = 0
+                for (var key in tempFragmentsRemaining)
+                    fewestRemaining += tempFragmentsRemaining[key]
+
+                if (fewestRemaining == 0)
+                {
+                    this.setState({ possibleBuild: [...mustIncludeFrags, ...perm]})
+                    return
+                }
+
+                // New best permutation, store it.
+                if (fewestRemaining < sumFragmentsRemaining)
+                {
+                    sumFragmentsRemaining = fewestRemaining
+                    bestFragments = [...mustIncludeFrags, ...perm]
+                }
+            })
+        }
+        
+        // After all these have been exhausted, if there are still fragments remaining to be filled, check how many slots are left. 
+        // If there aren't enough slots to satisfy the remaining set effects, it's impossible.
+
+        if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length)
+        {
             this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
+            return
+        }
+
+        // Update the counts of all the set effect fragments still needed again
+        bestFragments.forEach(frag => frag.setEffects.forEach(se => 
+            { 
+                if (se.name in fragmentsRemaining)
+                    fragmentsRemaining[se.name] = Math.max(0, fragmentsRemaining[se.name] - 1)
+        }))
+        
+        
+        // If we get to this point, from here we just fill in whatever slots are remaining with a fragment that has the necessary set effect.
+        for (var se in fragmentsRemaining)
+        {
+            if (fragmentsRemaining[se] == 0)
+                continue
+            
+            const seteffect = this.state.setEffects.filter(s => s.name == se)[0]
+            for (var frag of seteffect.fragments)
+            {
+                if (bestFragments.find(f => f.id == frag.id || fragmentsRemaining[se] == 0)) // can't break from this for loop, so just continue
+                    continue
+
+                bestFragments.push(frag)
+                fragmentsRemaining[se] -= 1
+            }
+        }
+
+        this.setState({ possibleBuild: bestFragments })
     }
 
     worksForDesiredSetEffects(desiredSets, fragments) {
         for (let set of desiredSets) {
             let slots = 0
             for (let frag of fragments) {
-                if (frag.owned && frag.setEffects.has(set)) {
+                if (frag.owned && frag.setEffects.includes(set)) {
                     slots++
                 }
             }
