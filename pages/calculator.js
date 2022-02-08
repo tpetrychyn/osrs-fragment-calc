@@ -615,7 +615,7 @@ export default class Calculator extends React.Component {
                             </tbody>
                         </table>
                     </div>
-                    <div className="float-left">
+                    <div className="float-left mb-10">
                         <table className="pure-table">
                             <thead>
                                 <tr>
@@ -640,6 +640,7 @@ export default class Calculator extends React.Component {
                             </tbody>
                         </table>
                     </div>
+                    <p className="clear pt-10">Created by /u/shockz13. Huge thanks to /u/Profesor_Caos for searching algorithm. Source code: <a href="https://github.com/tpetrychyn/osrs-fragment-calc">Github</a></p>
                 </div>
             </div>
         );
