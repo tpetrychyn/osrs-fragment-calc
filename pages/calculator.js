@@ -289,7 +289,7 @@ export default class Calculator extends React.Component {
         const chosenSetEffects = this.state.setEffects.filter(set => set.chosen)
 
         if (chosenSetEffects.length > 8) {
-            this.setState({ buildPrompt: "Cannot have more than 8 sets.", possibleBuild: null })
+            this.setState({ buildPrompt: "Cannot have more than 7 sets.", possibleBuild: null })
             return
         }
 
@@ -500,7 +500,6 @@ export default class Calculator extends React.Component {
     render() {
         return (
             <div className="component-app">
-                <p>You cannot select more than 8 sets at a time.</p>
                 <div className="pure-u-1 min-height-145">
                     <h1>Possible Build</h1>
                     <p>Click to exclude fragments. Re-enable them at the bottom of the page.</p>
