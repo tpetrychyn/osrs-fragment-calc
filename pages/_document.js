@@ -33,8 +33,10 @@ class MyDocument extends Document {
           <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.6/build/grids-responsive-min.css" />
         </Head>
         <body>
-          <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-FVTW5CD"
-            height="0" width="0" style={{display:"none",visibility:"hidden"}}></iframe></noscript>
+          <noscript dangerouslySetInnerHTML={{
+            __html: `<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-FVTW5CD"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>`
+          }}></noscript>
           <Main />
           <NextScript />
         </body>

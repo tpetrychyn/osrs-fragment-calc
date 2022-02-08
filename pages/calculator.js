@@ -548,6 +548,16 @@ export default class Calculator extends React.Component {
             })
         }
 
+        if (mustInclude || notOwned || tierParam || setEffects) {
+            window.dataLayer.push({
+                event: 'load-share',
+                notOwned,
+                mustInclude,
+                setEffects,
+                tierParam
+            })
+        }
+
         this.setState({ fragments: this.state.fragments, numSlots: tier, setEffects: this.state.setEffects }, this.computeCombination)
     }
 
