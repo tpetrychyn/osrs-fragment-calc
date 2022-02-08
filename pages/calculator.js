@@ -334,26 +334,23 @@ export default class Calculator extends React.Component {
             return
         } 
 
-        // All of the fragments with two effects (not including the mustInclude, because those are mandatory anyway)
+        // All of the fragments with two relevant effects (not including the mustInclude, because those are mandatory anyway)
         const doubleFrags = [...fragments].filter(frag => !frag.mustInclude && chosenSetEffects.find(s => s == frag.setEffects[0]) && chosenSetEffects.find(s => s == frag.setEffects[1]))
 
-        // Build all possible combinations of the fragments that must be included and the double fragments.
-        // Build them or sort them in such a way that they're ordered fewest fragments to most fragments.
-
-        //let fewestRemaining = sumFragmentsRemaining
+        // Build all possible combinations of the the double fragments.
         let bestFragments = [...filtered]
-        for (let i = 1; i < this.state.numSlots - mustIncludeFrags.size; i++)
+        for (let i = 1; i < this.state.numSlots + 1 - mustIncludeFrags.size; i++)
         {
             // Get all the permutations of size i
             const perms = this.k_combinations(doubleFrags, i)
-
-            perms.forEach(perm =>
+            
+            for (var permID in perms)
             {
+                const perm = perms[permID]
                 const tempFragmentsRemaining = Object.assign({}, fragmentsRemaining)
-                perm.forEach(frag => frag.setEffects.forEach(se => 
-                    { 
-                        if (se.name in tempFragmentsRemaining)
-                            tempFragmentsRemaining[se.name] = Math.max(0, tempFragmentsRemaining[se.name] - 1)
+                perm.forEach(frag => frag.setEffects.forEach(se => { 
+                    if (se.name in tempFragmentsRemaining)
+                        tempFragmentsRemaining[se.name] = Math.max(0, tempFragmentsRemaining[se.name] - 1)
                 }))
                 
                 let fewestRemaining = 0
@@ -372,12 +369,11 @@ export default class Calculator extends React.Component {
                     sumFragmentsRemaining = fewestRemaining
                     bestFragments = [...mustIncludeFrags, ...perm]
                 }
-            })
+            }
         }
         
         // After all these have been exhausted, if there are still fragments remaining to be filled, check how many slots are left. 
         // If there aren't enough slots to satisfy the remaining set effects, it's impossible.
-
         if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length)
         {
             this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
@@ -390,7 +386,6 @@ export default class Calculator extends React.Component {
                 if (se.name in fragmentsRemaining)
                     fragmentsRemaining[se.name] = Math.max(0, fragmentsRemaining[se.name] - 1)
         }))
-        
         
         // If we get to this point, from here we just fill in whatever slots are remaining with a fragment that has the necessary set effect.
         for (var se in fragmentsRemaining)
@@ -410,19 +405,6 @@ export default class Calculator extends React.Component {
         }
 
         this.setState({ possibleBuild: bestFragments })
-    }
-
-    worksForDesiredSetEffects(desiredSets, fragments) {
-        for (let set of desiredSets) {
-            let slots = 0
-            for (let frag of fragments) {
-                if (frag.owned && frag.setEffects.includes(set)) {
-                    slots++
-                }
-            }
-            if (slots < set.chosenCount) return false
-        }
-        return true
     }
 
     k_combinations(set, k) {
