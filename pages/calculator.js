@@ -288,8 +288,8 @@ export default class Calculator extends React.Component {
         const fragments = new Set()
         const chosenSetEffects = this.state.setEffects.filter(set => set.chosen)
 
-        if (chosenSetEffects.length > 5) {
-            this.setState({ buildPrompt: "Cannot have more than 5 sets.", possibleBuild: null })
+        if (chosenSetEffects.length > 8) {
+            this.setState({ buildPrompt: "Cannot have more than 8 sets.", possibleBuild: null })
             return
         }
 
@@ -310,12 +310,12 @@ export default class Calculator extends React.Component {
             return
         }
 
-        // For each selected set effect, have a number of remaining needed fragments
+        // For each selected set effect, maintain the number of needed fragments remaining
         let fragmentsRemaining = {}
         chosenSetEffects.forEach(set =>{fragmentsRemaining[set.name] = set.chosenCount})
         
         // Force inclusion of the fragments that must be included.
-        let filtered = [...mustIncludeFrags]
+        let bestFragments = [...mustIncludeFrags]
 
         // Update the counts of all the set effect fragments still needed
         mustIncludeFrags.forEach(frag => frag.setEffects.forEach(se => 
@@ -330,15 +330,14 @@ export default class Calculator extends React.Component {
 
         if (sumFragmentsRemaining == 0)
         {
-            this.setState({ possibleBuild: filtered})
+            this.setState({ possibleBuild: bestFragments})
             return
         } 
 
         // All of the fragments with two relevant effects (not including the mustInclude, because those are mandatory anyway)
         const doubleFrags = [...fragments].filter(frag => !frag.mustInclude && chosenSetEffects.find(s => s == frag.setEffects[0]) && chosenSetEffects.find(s => s == frag.setEffects[1]))
 
-        // Build all possible combinations of the the double fragments.
-        let bestFragments = [...filtered]
+        // Build all possible combinations of the the double fragments and test them with the mandatory fragments to find the best solution
         for (let i = 1; i < this.state.numSlots + 1 - mustIncludeFrags.size; i++)
         {
             // Get all the permutations of size i
@@ -501,7 +500,7 @@ export default class Calculator extends React.Component {
     render() {
         return (
             <div className="component-app">
-                <p>Choosing multiple sets may freeze for a few seconds. You cannot select more than 5 sets at a time.</p>
+                <p>You cannot select more than 8 sets at a time.</p>
                 <div className="pure-u-1 min-height-145">
                     <h1>Possible Build</h1>
                     <p>Click to exclude fragments. Re-enable them at the bottom of the page.</p>
