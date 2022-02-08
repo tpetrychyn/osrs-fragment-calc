@@ -288,7 +288,7 @@ export default class Calculator extends React.Component {
         const fragments = new Set()
         const chosenSetEffects = this.state.setEffects.filter(set => set.chosen)
 
-        if (chosenSetEffects.length > 8) {
+        if (chosenSetEffects.length > 7) {
             this.setState({ buildPrompt: "Cannot have more than 7 sets.", possibleBuild: null })
             return
         }
@@ -334,44 +334,25 @@ export default class Calculator extends React.Component {
             return
         } 
 
+        bestFragments = []
+
         // All of the fragments with two relevant effects (not including the mustInclude, because those are mandatory anyway)
         const doubleFrags = [...fragments].filter(frag => !frag.mustInclude && chosenSetEffects.find(s => s == frag.setEffects[0]) && chosenSetEffects.find(s => s == frag.setEffects[1]))
 
-        // Build all possible combinations of the the double fragments and test them with the mandatory fragments to find the best solution
-        for (let i = 1; i < this.state.numSlots + 1 - mustIncludeFrags.size; i++)
+        if (doubleFrags.length > 0)
         {
-            // Get all the permutations of size i
-            const perms = this.k_combinations(doubleFrags, i)
-            
-            for (var permID in perms)
+            const result = this.testDoubleFragments(doubleFrags, mustIncludeFrags, fragmentsRemaining, sumFragmentsRemaining)
+            bestFragments = result.bestFragments
+            sumFragmentsRemaining = result.sumFragmentsRemaining
+        
+            if (sumFragmentsRemaining == 0)
             {
-                const perm = perms[permID]
-                const tempFragmentsRemaining = Object.assign({}, fragmentsRemaining)
-                perm.forEach(frag => frag.setEffects.forEach(se => { 
-                    if (se.name in tempFragmentsRemaining)
-                        tempFragmentsRemaining[se.name] = Math.max(0, tempFragmentsRemaining[se.name] - 1)
-                }))
-                
-                let fewestRemaining = 0
-                for (var key in tempFragmentsRemaining)
-                    fewestRemaining += tempFragmentsRemaining[key]
-
-                if (fewestRemaining == 0)
-                {
-                    this.setState({ possibleBuild: [...mustIncludeFrags, ...perm]})
-                    return
-                }
-
-                // New best permutation, store it.
-                if (fewestRemaining < sumFragmentsRemaining)
-                {
-                    sumFragmentsRemaining = fewestRemaining
-                    bestFragments = [...perm]
-                }
+                this.setState({ possibleBuild: bestFragments})
+                return
             }
         }
-        
-        // After all these have been exhausted, if there are still fragments remaining to be filled, check how many slots are left. 
+
+        // After all the double fragments have been exhausted, if there are still fragments remaining to be filled, check how many slots are left. 
         // If there aren't enough slots to satisfy the remaining set effects, it's impossible.
         if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length - mustIncludeFrags.size)
         {
@@ -406,6 +387,49 @@ export default class Calculator extends React.Component {
         }
 
         this.setState({ possibleBuild: bestFragments })
+    }
+
+    testDoubleFragments(doubleFrags, mustIncludeFrags, fragmentsRemaining, sumFragmentsRemaining) 
+    {
+        let result = []
+        for (let i = 1; i < this.state.numSlots + 1 - mustIncludeFrags.size; i++)
+        {
+            // Get all the permutations of size i
+            const perms = this.k_combinations(doubleFrags, i)
+            
+            for (var permID in perms)
+            {
+                const perm = perms[permID]
+                const tempFragmentsRemaining = Object.assign({}, fragmentsRemaining)
+                perm.forEach(frag => frag.setEffects.forEach(se => { 
+                    if (se.name in tempFragmentsRemaining)
+                        tempFragmentsRemaining[se.name] = Math.max(0, tempFragmentsRemaining[se.name] - 1)
+                }))
+                
+                let fewestRemaining = 0
+                for (var key in tempFragmentsRemaining)
+                    fewestRemaining += tempFragmentsRemaining[key]
+
+                if (fewestRemaining == 0)
+                {
+                    return {
+                        'bestFragments': [...mustIncludeFrags, ...perm],
+                        'sumFragmentsRemaining': 0
+                    }
+                }
+
+                // New best permutation, store it.
+                if (fewestRemaining < sumFragmentsRemaining)
+                {
+                    sumFragmentsRemaining = fewestRemaining
+                    result = [...perm]
+                }
+            }
+        }
+        return {
+            'bestFragments': result,
+            'sumFragmentsRemaining': sumFragmentsRemaining
+        }
     }
 
     k_combinations(set, k) {
