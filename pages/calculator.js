@@ -19,6 +19,7 @@ class Fragment {
 
 class SetEffect {
     name = ""
+    symbol = ""
     description = ""
     counts = []
     fragments
@@ -26,8 +27,9 @@ class SetEffect {
     chosen = false
     chosenCount = 0
 
-    constructor(name, counts, description, fragments, imageUrlOverride) {
+    constructor(name, symbol, counts, description, fragments, imageUrlOverride) {
         this.name = name
+        this.symbol = symbol
         this.counts = counts
         this.description = description
         this.fragments = fragments
@@ -92,21 +94,21 @@ const unholyWizard = new Fragment("Unholy Wizard", 5, "The player's accuracy for
 const venomaster = new Fragment("Venomaster", 13, "The player's attacks have a chance to inflict poison that starts at 3/5/7 damage. Players will gain poison immunity at level 2, and venom immunity at level 3.")
 const zamorakianSight = new Fragment("Zamorakian Sight", 19, "When wielding four Zamorakian items, the player's accuracy for magic attacks is increased by 50/125/250%.")
 
-const absoluteUnit = new SetEffect("Absolute Unit", [2, 3], "<b>[2]</b> Players take 30% less damage from monsters, with 50% of post-reduction damage reflected back to the attacker. <br/><br/> <b>[3]</b> Players take 50% less damage from monsters, with 100% of post-reduction damage reflected back to the attacker.", new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
-const alchemist = new SetEffect("The Alchemist", [3], "<b>[3]</b> When cooking food, making jugs of wine, cleaning grimy herbs, or mixing potions, all items in the player's inventory will be processed at once and reward the full amount of experience.", new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
-const chainMagic = new SetEffect("Chain Magic", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another magic attack after a successful hit with magic. <br/><br/><b>[3]</b> Players have a 60% chance to perform another magic attack after a successful hit with magic.", new Set([thrallDamage, unholyWizard, zamorakianSight, mothersMagicFossils, deeperPockets, rootyTooty2xRuneys, hotOnTheTrail, imcandosApprentice]))
-const craftsman = new SetEffect("The Craftsman", [3], "<b>[3]</b> When smelting ores, smithing bars and cannonballs, crafting with leather, glass, uncut gems, pottery, battlestaves, spinning flax and wool, fletching logs and cutting bolt tips, all items in the player's inventory will be processed at once and reward the full amount of experience.",  new Set([rumpleBowString, dragonOnABit, imcandosApprentice, graveRobber, profconstchional, proTips]))
-const doubleTap = new SetEffect("Double Tap", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another ranged attack after a successful hit with ranged. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another ranged attack after a successful hit with ranged.", new Set([smithingDouble, rumpleBowString, roguesChompyFarm, unholyRanger, armadyleanDecree, chinchonkers, proTips]))
-const drakansTouch = new SetEffect("Drakan's Touch", [2, 3], "<b>[2]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 5% of the damage dealt. <br/><br/> <b>[3]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 10% of the damage dealt.", new Set([unholyWizard, zamorakianSight, cluedIn, unholyRanger, prayingRespects, largerRecharger, specialDiscount]))
-const endlessKnowledge = new SetEffect("Endless Knowledge", [3], "<b>[3]</b> Players receive an arcane grimoire from The Sage, which allows the ability to freely switch spellbooks anywhere.", new Set([arcaneConduit, thrallDamage, enchantedJeweler, alchemaniac, plankStretcher, mothersMagicFossils]))
-const fastMetabolism = new SetEffect("Fast Metabolism", [2], "<b>[2]</b> Hitpoint regeneration is increased by x4.", new Set([graveRobber, rockSolid, bandosianMight, largerRecharger, hotOnTheTrail, venomaster]))
-const greedyGatherer = new SetEffect("Greedy Gatherer", [2, 3], "<b>[2]</b> Players will receive double the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming. <br/><br/> <b>[3]</b> Players will receive triple the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming.", new Set([messageInABottle, moltenMiner, rockSolid, certifiedFarmer, chefsCatch, slashBurn, justDruid]))
-const knifesEdge = new SetEffect("Knife's Edge", [2, 3], "<b>[2]</b> Players will deal 0.3% additional damage for every hitpoint missing.<br/><br/> <b>[3]</b> Players will deal 0.6% additional damage for every hitpoint missing.", new Set([barbarianPestWars, messageInABottle, slayAllDay, bottomlessQuiver, livinOnAPrayer, prayingRespects, unholyWarrior, saradoministDefence]))
-const lastRecall = new SetEffect("Last Recall", [4], "<b>[4]</b> Players receive a crystal of memories from The Sage, which allows them to teleport themselves back to the location where their most recent teleport occurred, with some caveats regarding its usage.", new Set([enchantedJeweler, runeEscape, cluedIn, slaynPay, superiorTracking, chinchonkers, homewrecker, profconstchional, rootyTooty2xRuneys, smoothCriminal]))
-const personalBanker = new SetEffect("Personal Banker", [2, 3], "<b>[2]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming have a 50% chance to be deposited directly to the player's bank. <br/><br/> <b>[3]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming are deposited directly to the player's bank.", new Set([smithingDouble, alchemaniac, moltenMiner, seedyBusiness, catchOfTheDay, deeperPockets]))
-const trailblazer = new SetEffect("Trailblazer", [3], "<b>[3]</b> Players receive a portable waystone from The Sage, which can teleport to other waystones.", new Set([arcaneConduit, goldenBrickRoad, bottomlessQuiver, seedyBusiness, chefsCatch, smoothCriminal, unholyWarrior]))
-const twinStrikes = new SetEffect("Twin Strikes", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another melee attack after a successful hit with melee. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another melee attack after a successful hit with melee.", new Set([barbarianPestWars, slaynPay, divineRestoration, livinOnAPrayer, tacticalDuelist, bandosianMight, specialDiscount]))
-const unchainedTalent = new SetEffect("Unchained Talent", [3], "<b>[3]</b> All non-combat skills are permanently boosted by +8. This boost is not limited to unlocked skills.", new Set([plankStretcher, roguesChompyFarm, dineDash, catchOfTheDay, slashBurn, mixologist]))
+const absoluteUnit = new SetEffect("Absolute Unit", "unit", [2, 3], "<b>[2]</b> Players take 30% less damage from monsters, with 50% of post-reduction damage reflected back to the attacker. <br/><br/> <b>[3]</b> Players take 50% less damage from monsters, with 100% of post-reduction damage reflected back to the attacker.", new Set([dragonOnABit, runeEscape, superiorTracking, armadyleanDecree, divineRestoration, tacticalDuelist, saradoministDefence, venomaster]))
+const alchemist = new SetEffect("The Alchemist", "alch", [3], "<b>[3]</b> When cooking food, making jugs of wine, cleaning grimy herbs, or mixing potions, all items in the player's inventory will be processed at once and reward the full amount of experience.", new Set([goldenBrickRoad, dineDash, slayAllDay, certifiedFarmer, homewrecker, mixologist, justDruid]))
+const chainMagic = new SetEffect("Chain Magic", "chain", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another magic attack after a successful hit with magic. <br/><br/><b>[3]</b> Players have a 60% chance to perform another magic attack after a successful hit with magic.", new Set([thrallDamage, unholyWizard, zamorakianSight, mothersMagicFossils, deeperPockets, rootyTooty2xRuneys, hotOnTheTrail, imcandosApprentice]))
+const craftsman = new SetEffect("The Craftsman", "craft", [3], "<b>[3]</b> When smelting ores, smithing bars and cannonballs, crafting with leather, glass, uncut gems, pottery, battlestaves, spinning flax and wool, fletching logs and cutting bolt tips, all items in the player's inventory will be processed at once and reward the full amount of experience.",  new Set([rumpleBowString, dragonOnABit, imcandosApprentice, graveRobber, profconstchional, proTips]))
+const doubleTap = new SetEffect("Double Tap", "double", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another ranged attack after a successful hit with ranged. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another ranged attack after a successful hit with ranged.", new Set([smithingDouble, rumpleBowString, roguesChompyFarm, unholyRanger, armadyleanDecree, chinchonkers, proTips]))
+const drakansTouch = new SetEffect("Drakan's Touch", "drakans", [2, 3], "<b>[2]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 5% of the damage dealt. <br/><br/> <b>[3]</b> Successful hits have a 50% chance of restoring the player's hitpoints by 10% of the damage dealt.", new Set([unholyWizard, zamorakianSight, cluedIn, unholyRanger, prayingRespects, largerRecharger, specialDiscount]))
+const endlessKnowledge = new SetEffect("Endless Knowledge", "endless", [3], "<b>[3]</b> Players receive an arcane grimoire from The Sage, which allows the ability to freely switch spellbooks anywhere.", new Set([arcaneConduit, thrallDamage, enchantedJeweler, alchemaniac, plankStretcher, mothersMagicFossils]))
+const fastMetabolism = new SetEffect("Fast Metabolism", "fast", [2], "<b>[2]</b> Hitpoint regeneration is increased by x4.", new Set([graveRobber, rockSolid, bandosianMight, largerRecharger, hotOnTheTrail, venomaster]))
+const greedyGatherer = new SetEffect("Greedy Gatherer", "greedy", [2, 3], "<b>[2]</b> Players will receive double the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming. <br/><br/> <b>[3]</b> Players will receive triple the resources (with full experience) from Fishing, Woodcutting, Mining, and Farming.", new Set([messageInABottle, moltenMiner, rockSolid, certifiedFarmer, chefsCatch, slashBurn, justDruid]))
+const knifesEdge = new SetEffect("Knife's Edge", "knifes", [2, 3], "<b>[2]</b> Players will deal 0.3% additional damage for every hitpoint missing.<br/><br/> <b>[3]</b> Players will deal 0.6% additional damage for every hitpoint missing.", new Set([barbarianPestWars, messageInABottle, slayAllDay, bottomlessQuiver, livinOnAPrayer, prayingRespects, unholyWarrior, saradoministDefence]))
+const lastRecall = new SetEffect("Last Recall", "last", [4], "<b>[4]</b> Players receive a crystal of memories from The Sage, which allows them to teleport themselves back to the location where their most recent teleport occurred, with some caveats regarding its usage.", new Set([enchantedJeweler, runeEscape, cluedIn, slaynPay, superiorTracking, chinchonkers, homewrecker, profconstchional, rootyTooty2xRuneys, smoothCriminal]))
+const personalBanker = new SetEffect("Personal Banker", "bank", [2, 3], "<b>[2]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming have a 50% chance to be deposited directly to the player's bank. <br/><br/> <b>[3]</b> Resources obtained from Fishing, Woodcutting, Mining, and Farming are deposited directly to the player's bank.", new Set([smithingDouble, alchemaniac, moltenMiner, seedyBusiness, catchOfTheDay, deeperPockets]))
+const trailblazer = new SetEffect("Trailblazer", "trail", [3], "<b>[3]</b> Players receive a portable waystone from The Sage, which can teleport to other waystones.", new Set([arcaneConduit, goldenBrickRoad, bottomlessQuiver, seedyBusiness, chefsCatch, smoothCriminal, unholyWarrior]))
+const twinStrikes = new SetEffect("Twin Strikes", "twin", [2, 3], "<b>[2]</b> Players have a 30% chance to perform another melee attack after a successful hit with melee. <br/><br/> <b>[3]</b> Players have a 60% chance to perform another melee attack after a successful hit with melee.", new Set([barbarianPestWars, slaynPay, divineRestoration, livinOnAPrayer, tacticalDuelist, bandosianMight, specialDiscount]))
+const unchainedTalent = new SetEffect("Unchained Talent", "talent", [3], "<b>[3]</b> All non-combat skills are permanently boosted by +8. This boost is not limited to unlocked skills.", new Set([plankStretcher, roguesChompyFarm, dineDash, catchOfTheDay, slashBurn, mixologist]))
 
 lastRecall.imageUrl = "https://oldschool.runescape.wiki/images/Last_Recall_%28Shattered_Relics%29_detail.png"
 
@@ -187,7 +189,8 @@ export default class Calculator extends React.Component {
             unchainedTalent
         ],
         possibleBuild: null,
-        buildPrompt: "Please select some set effects."
+        buildPrompt: "Please select some set effects.",
+        sharedBuild: false
     };
 
     fragmentMustIncludeChanged = (idx) => {
@@ -288,8 +291,13 @@ export default class Calculator extends React.Component {
         const fragments = new Set()
         const chosenSetEffects = this.state.setEffects.filter(set => set.chosen)
 
+        if (chosenSetEffects.length == 0) {
+            this.setBuild(null, "Please select some set effects.")
+            return
+        }
+        
         if (chosenSetEffects.length > 7) {
-            this.setState({ buildPrompt: "Cannot have more than 7 sets.", possibleBuild: null })
+            this.setBuild(null, "Cannot have more than 7 sets.")
             return
         }
 
@@ -306,7 +314,7 @@ export default class Calculator extends React.Component {
 
         let numSlotsRemaining = this.state.numSlots
         if (mustIncludeFrags.size > numSlotsRemaining) {
-            this.setState({ buildPrompt: "Cannot include more fragments than there are slots available.", possibleBuild: null})
+            this.setBuild(null, "Cannot include more fragments than there are slots available.")
             return
         }
 
@@ -330,7 +338,7 @@ export default class Calculator extends React.Component {
 
         if (sumFragmentsRemaining == 0)
         {
-            this.setState({ possibleBuild: bestFragments})
+            this.setBuild(bestFragments)
             return
         } 
 
@@ -347,7 +355,7 @@ export default class Calculator extends React.Component {
         
             if (sumFragmentsRemaining == 0)
             {
-                this.setState({ possibleBuild: bestFragments})
+                this.setBuild(bestFragments)
                 return
             }
         }
@@ -356,7 +364,7 @@ export default class Calculator extends React.Component {
         // If there aren't enough slots to satisfy the remaining set effects, it's impossible.
         if (sumFragmentsRemaining > this.state.numSlots - bestFragments.length - mustIncludeFrags.size)
         {
-            this.setState({ buildPrompt: "There are no possible combinations", possibleBuild: null })
+            this.setBuild(null, "There are no possible combinations")
             return
         }
 
@@ -386,7 +394,11 @@ export default class Calculator extends React.Component {
             }
         }
 
-        this.setState({ possibleBuild: bestFragments })
+        this.setBuild(bestFragments)
+    }
+
+    setBuild(possibleBuild, buildPrompt = "") {
+        this.setState({possibleBuild, buildPrompt, sharedBuild: false})
     }
 
     testDoubleFragments(doubleFrags, mustIncludeFrags, fragmentsRemaining, sumFragmentsRemaining) 
@@ -520,15 +532,68 @@ export default class Calculator extends React.Component {
             tier = parseInt(tierParam)
         }
 
-        this.setState({ fragments: this.state.fragments, numSlots: tier }, this.computeCombination)
+        const setEffects = params.get('setEffects')
+        if (setEffects) {
+            const setEffectsArr = setEffects.split(",")
+            setEffectsArr.forEach(key => {
+                const [sym, count] = key.split("-")
+                const se = this.state.setEffects.find(se => se.symbol == sym)
+                if (se) {
+                    se.chosen = true
+                    se.chosenCount = parseInt(count)
+                }
+            })
+        }
+
+        this.setState({ fragments: this.state.fragments, numSlots: tier, setEffects: this.state.setEffects }, this.computeCombination)
+    }
+
+    onShareClicked = () => {
+        const notOwned = []
+        const mustInclude = []
+        this.state.fragments.forEach(f => {
+            if (!f.owned) notOwned.push(f.id)
+            if (f.mustInclude) mustInclude.push(f.id)
+        })
+
+
+        const setEffects = []
+        this.state.setEffects.forEach(se => {
+            if (se.chosen) {
+                const key = se.symbol + "-" + se.chosenCount
+                setEffects.push(key)
+            }
+        })
+
+        const tier = this.state.numSlots
+
+        const params = {
+            tier,
+            ...(notOwned.length > 0 && {notOwned}),
+            ...(mustInclude.length > 0 && {mustInclude}),
+            ...(setEffects.length > 0 && {setEffects})   
+        }
+
+        const urlParams = new URLSearchParams(params)
+
+        const origin = window.location.origin
+        const path = window.location.pathname
+
+        const url = origin + path + "?" + urlParams.toString()
+        navigator.clipboard.writeText(url)
+        this.setState({sharedBuild: true})
     }
 
     render() {
         return (
             <div className="component-app">
                 <div className="pure-u-1 min-height-145">
-                    <h1>Possible Build</h1>
-                    <p>Click to exclude fragments. Re-enable them at the bottom of the page.</p>
+                    <h1 className="float-left">Possible Build</h1>
+                    <p className="float-left clear-button"><button
+                        onClick={this.onShareClicked}
+                        className="button-xsmall pure-button"
+                        disabled={!this.state.possibleBuild || this.state.sharedBuild}>{this.state.sharedBuild ? "Copied to clipboard" : "Share"}</button></p>
+                    <p className="clear">Click to exclude fragments. Re-enable them at the bottom of the page.</p>
                     <h3><label htmlFor="multi-state">Tier&nbsp;</label>
                         <select id="multi-state" className="pure-input-1" value={this.state.numSlots} onChange={this.onTierChanged}>
                             <option>1</option>
