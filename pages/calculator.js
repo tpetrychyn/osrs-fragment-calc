@@ -310,8 +310,6 @@ export default class Calculator extends React.Component {
                     })
             })
 
-            console.log(fragments)
-
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
 
         let numSlotsRemaining = this.state.numSlots
@@ -437,6 +435,9 @@ export default class Calculator extends React.Component {
 
                 if (fewestRemaining == 0)
                 {
+                    if (mustIncludeFrags.size + perm.length > this.state.numSlots) {
+                        continue
+                    }
                     return {
                         'bestFragments': [...mustIncludeFrags, ...perm],
                         'sumFragmentsRemaining': 0
