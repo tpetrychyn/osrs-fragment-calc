@@ -310,6 +310,8 @@ export default class Calculator extends React.Component {
                     })
             })
 
+            console.log(fragments)
+
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
 
         let numSlotsRemaining = this.state.numSlots
@@ -386,12 +388,23 @@ export default class Calculator extends React.Component {
             const seteffect = this.state.setEffects.filter(s => s.name == se)[0]
             for (var frag of seteffect.fragments)
             {
+                if (!frag.owned)
+                    continue
+
                 if (bestFragments.find(f => f.id == frag.id || fragmentsRemaining[se] == 0)) // can't break from this for loop, so just continue
                     continue
 
                 bestFragments.push(frag)
                 fragmentsRemaining[se] -= 1
             }
+        }
+
+        // every set should require 0 more fragments to be complete
+        const doesBuildWork = Object.values(fragmentsRemaining).every(f => f == 0)
+
+        if (!doesBuildWork) {
+            this.setBuild(null, "There are no possible combinations.")
+            return
         }
 
         this.setBuild(bestFragments)
