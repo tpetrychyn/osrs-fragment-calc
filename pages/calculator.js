@@ -310,8 +310,6 @@ export default class Calculator extends React.Component {
                     })
             })
 
-            console.log(fragments)
-
         const mustIncludeFrags = new Set(this.state.fragments.filter(frag => frag.mustInclude))
 
         let numSlotsRemaining = this.state.numSlots
@@ -515,7 +513,7 @@ export default class Calculator extends React.Component {
     }
 
     onTierChanged = (e) => {
-        this.setState({ numSlots: e.target.value }, this.computeCombination)
+        this.setState({ numSlots: parseInt(e.target.value) }, this.computeCombination)
     }
 
     componentDidMount () {
