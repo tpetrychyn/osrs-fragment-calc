@@ -411,6 +411,8 @@ export default class Calculator extends React.Component {
     }
 
     setBuild(possibleBuild, buildPrompt = "") {
+        if (possibleBuild != null)
+            possibleBuild.sort((f1, f2) => f1.id - f2.id)
         this.setState({possibleBuild, buildPrompt, sharedBuild: false})
     }
 
