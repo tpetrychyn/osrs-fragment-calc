@@ -1,7 +1,11 @@
 import styles from '../styles/Home.module.css'
 import Calculator from './calculator'
-import ReactTooltip from 'react-tooltip';
 import React from "react"
+import dynamic from "next/dynamic";
+
+const ReactTooltip = dynamic(() => import("react-tooltip"), {
+  ssr: false,
+});
 
 export default function Home() {
 
