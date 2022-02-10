@@ -435,9 +435,6 @@ export default class Calculator extends React.Component {
 
                 if (fewestRemaining == 0)
                 {
-                    if (mustIncludeFrags.size + perm.length > this.state.numSlots) {
-                        continue
-                    }
                     return {
                         'bestFragments': [...mustIncludeFrags, ...perm],
                         'sumFragmentsRemaining': 0
@@ -516,7 +513,7 @@ export default class Calculator extends React.Component {
     }
 
     onTierChanged = (e) => {
-        this.setState({ numSlots: e.target.value }, this.computeCombination)
+        this.setState({ numSlots: parseInt(e.target.value) }, this.computeCombination)
     }
 
     componentDidMount () {
