@@ -190,7 +190,8 @@ export default class Calculator extends React.Component {
         ],
         possibleBuild: null,
         buildPrompt: "Please select some set effects.",
-        sharedBuild: false
+        sharedBuild: false,
+        exportedBuild: false
     };
 
     fragmentMustIncludeChanged = (idx) => {
@@ -413,7 +414,7 @@ export default class Calculator extends React.Component {
     setBuild(possibleBuild, buildPrompt = "") {
         if (possibleBuild != null)
             possibleBuild.sort((f1, f2) => f1.id - f2.id)
-        this.setState({possibleBuild, buildPrompt, sharedBuild: false})
+        this.setState({possibleBuild, buildPrompt, sharedBuild: false, exportedBuild: false})
     }
 
     testDoubleFragments(doubleFrags, mustIncludeFrags, fragmentsRemaining, sumFragmentsRemaining) 
@@ -614,6 +615,13 @@ export default class Calculator extends React.Component {
         this.setState({sharedBuild: true})
     }
 
+    onExportClicked = () => {
+        let fragmentNames = []
+        this.state.possibleBuild.forEach(f => fragmentNames.push(f.name))
+        navigator.clipboard.writeText(JSON.stringify(fragmentNames))
+        this.setState({exportedBuild: true})
+    }
+
     render() {
         return (
             <div className="component-app">
@@ -623,6 +631,10 @@ export default class Calculator extends React.Component {
                         onClick={this.onShareClicked}
                         className="button-xsmall pure-button"
                         disabled={!this.state.possibleBuild || this.state.sharedBuild}>{this.state.sharedBuild ? "Copied to clipboard" : "Share"}</button></p>
+                    <p className="float-left clear-button"><button
+                        onClick={this.onExportClicked}
+                        className="button-xsmall pure-button"
+                        disabled={!this.state.possibleBuild || this.state.exportedBuild}>{this.state.exportedBuild ? "Copied to clipboard" : "Export"}</button></p>
                     <p className="clear">Click to exclude fragments. Re-enable them at the bottom of the page.</p>
                     <h3><label htmlFor="multi-state">Tier&nbsp;</label>
                         <select id="multi-state" className="pure-input-1" value={this.state.numSlots} onChange={this.onTierChanged}>
